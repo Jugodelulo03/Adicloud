@@ -3,30 +3,42 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+//import User model
+const User = require('../models/User'); // User model
+
 //new route
 const router = express.Router();
 
-// simulated database
-const users = [
-  { email: 'test@example.com', passwordHash: bcrypt.hashSync('123456', 10) }
-];
 
-// Login route
+// LOGIN user
+// POST /login
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-//check email
-  const user = users.find(u => u.email === email);
-  if (!user) 
-    return res.status(401).json({ error: 'User not found' }); 
+    // find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
 
-//check password 
-  const valid = await bcrypt.compare(password, user.passwordHash);
-  if (!valid) return res.status(401).json({ error: 'Incorrect password' });
+    // validate password
+    const valid = await bcrypt.compare(password, user.passwordHash);
+    if (!valid) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
 
-// create a JWT token
-  const token = jwt.sign({ email: user.email }, 'secret123', { expiresIn: '1h' });
-  res.json({ token });
+    // create JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 // Export the router
