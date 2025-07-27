@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/profile'));
 app.use('/', require('./routes/assets'));
+app.use('/', require('./routes/download'));
 
 // start the server in Render or locally (3000)
 const PORT = process.env.PORT || 3000;
