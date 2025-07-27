@@ -3,7 +3,7 @@ const multer = require('multer');
 const cloudinary = require('../cloudinaryConfig');
 const Asset = require('../models/Asset');
 const fs = require('fs');
-const { authorizeAdmin } = require('../middleware/authMiddleware');
+const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
 // POST /assets/upload - upload files to Cloudinary and save in MongoDB
-router.post('/assets/upload', authorizeAdmin ,upload.array('files'), async (req, res) => {
+router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, res) => {
   try {
     const { name, category } = req.body;
 

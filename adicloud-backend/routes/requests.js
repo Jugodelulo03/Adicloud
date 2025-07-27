@@ -1,6 +1,6 @@
 const express = require('express');
 const Request = require('../models/Request');
-const { authorizeAdmin } = require('../middleware/authMiddleware');
+const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -41,7 +41,7 @@ router.get('/requests/user/:userId/:status', async (req, res) => {
 
 //ADMIN ROUTES -----------------
 // GET /requests - admin: get all requests
-router.get('/requests', authorizeAdmin, async (req, res) => {
+router.get('/requests', requireAdmin, async (req, res) => {
   try {
     const requests = await Request.find().populate('userId assetId');
     res.json(requests);
@@ -52,7 +52,7 @@ router.get('/requests', authorizeAdmin, async (req, res) => {
 
 
 // GET /requests/status/:status - admin: get all requests by status
-router.get('/requests/status/:status', authorizeAdmin, async (req, res) => {
+router.get('/requests/status/:status', requireAdmin, async (req, res) => {
   try {
     const { status } = req.params;
     const requests = await Request.find({ status }).populate('userId assetId');
@@ -63,7 +63,7 @@ router.get('/requests/status/:status', authorizeAdmin, async (req, res) => {
 });
 
 // PATCH /requests/:id/status - admin: update request status
-router.patch('/requests/:id/status', authorizeAdmin,async (req, res) => {
+router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
   try {
     const { status } = req.body;
     if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
