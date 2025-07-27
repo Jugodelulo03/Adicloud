@@ -1,0 +1,28 @@
+const jwt = require('jsonwebtoken');
+
+//function to authenticate JWT token everytime a request is made
+// This middleware checks if the request has a valid JWT token
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied: No token provided' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ error: 'Invalid or expired token' });
+    req.user = user; // Attach decoded token payload to request
+    next();
+  });
+}
+
+// Middleware to check for admin role
+function requireAdmin(req, res, next) {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Access denied: Admins only' });
+  }
+  next();
+}
+
+module.exports = { authenticateToken, requireAdmin };

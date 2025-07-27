@@ -3,14 +3,16 @@ const multer = require('multer');
 const cloudinary = require('../cloudinaryConfig');
 const Asset = require('../models/Asset');
 const fs = require('fs');
+const { authorizeAdmin } = require('../middleware/auth');
 
 const router = express.Router();
+
 
 // Multer: handles incoming file uploads by temporarily storing them in the 'uploads/' folder
 const upload = multer({ dest: 'uploads/' });
 
 // POST /assets/upload - upload files to Cloudinary and save in MongoDB
-router.post('/assets/upload', upload.array('files'), async (req, res) => {
+router.post('/assets/upload', authorizeAdmin ,upload.array('files'), async (req, res) => {
   try {
     const { name, category } = req.body;
 
