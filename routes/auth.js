@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
 // POST /register
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { name, email, password, role } = req.body;
 
     // check if user already exists
     const existingUser = await User.findOne({ email });
@@ -56,8 +56,9 @@ router.post('/register', async (req, res) => {
     // hash password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // create user
+    // create user with name
     const newUser = new User({
+      name,
       email,
       passwordHash,
       role: role || 'user'
