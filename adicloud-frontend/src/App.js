@@ -1,58 +1,27 @@
-import { useState } from "react";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import Main from "./pages/Main"; // este es tu UserDashboard
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-  const [profile, setProfile] = useState(null);
-
-  const API_URL = "https://adicloud.onrender.com"; // reemplaza con tu URL de Render
-
-  const login = async () => {
-    const res = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await res.json();
-    setToken(data.token);
-  };
-
-  const getProfile = async () => {
-    const res = await fetch(`${API_URL}/profile`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    const data = await res.json();
-    setProfile(data);
-  };
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Adicloud Login</h1>
-      {!token ? (
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={login}>Login</button>
-        </div>
-      ) : (
-        <div>
-          <h2>Token obtenido</h2>
-          <button onClick={getProfile}>Ver perfil</button>
-          {profile && <pre>{JSON.stringify(profile, null, 2)}</pre>}
-        </div>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/admin"
+          element={token && role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/user"
+          element={token && role === 'user' ? <Main /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
