@@ -44,10 +44,15 @@ router.post('/assets/upload', upload.array('files'), async (req, res) => {
   }
 });
 
-// GET /assets - retrieve all assets from MongoDB
+// GET /assets?category=nombre_categoria - retrieve assets by category
 router.get('/assets', async (req, res) => {
   try {
-    const assets = await Asset.find();
+    const { category } = req.query;
+
+    // If no category is provided, return all assets
+    const filter = category ? { category } : {};
+
+    const assets = await Asset.find(filter);
     res.json(assets);
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
