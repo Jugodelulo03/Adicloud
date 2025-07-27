@@ -1,32 +1,56 @@
 const express = require('express');
+const multer = require('multer');
+const cloudinary = require('../cloudinaryConfig');
+const Asset = require('../models/Asset');
+const fs = require('fs');
+
 const router = express.Router();
-const Asset = require('../models/Asset.js'); 
 
-// POST /assets - Create a new asset
-router.post('/assets', async (req, res) => {
+// Multer: handles incoming file uploads by temporarily storing them in the 'uploads/' folder
+const upload = multer({ dest: 'uploads/' });
+
+// POST /assets/upload - upload files to Cloudinary and save in MongoDB
+router.post('/assets/upload', upload.array('files'), async (req, res) => {
   try {
-    const { name, files } = req.body;
+    const { name, category } = req.body;
 
-    if (!name || !files || !Array.isArray(files) || files.length === 0) {
-      return res.status(400).json({ error: 'Name and at least one file are required' });
+    // Validate request body and files
+    if (!name || !category || !req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'Name, category and at least one file are required' });
     }
 
-    const newAsset = new Asset({ name, files });
+    // Create folder path in Cloudinary: category/name
+    const folderPath = `${category}/${name}`;
+
+    // Upload each file to Cloudinary in its folder, then delete temp file
+    const uploadResults = await Promise.all(
+      req.files.map(async (file) => {
+        const result = await cloudinary.uploader.upload(file.path, { folder: folderPath });
+        fs.unlinkSync(file.path); // delete temp file after upload
+        return result;
+      })
+    );
+
+    // Extract secure URLs
+    const fileUrls = uploadResults.map(r => r.secure_url);
+
+    // Save asset document in MongoDB
+    const newAsset = new Asset({ name, category, files: fileUrls });
     await newAsset.save();
 
-    res.json({ message: 'Asset created successfully', asset: newAsset });
+    res.json({ message: 'Asset uploaded successfully', asset: newAsset });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
-// GET /assets - get all assets
+// GET /assets - retrieve all assets from MongoDB
 router.get('/assets', async (req, res) => {
   try {
     const assets = await Asset.find();
     res.json(assets);
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
