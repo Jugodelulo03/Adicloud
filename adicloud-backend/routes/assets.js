@@ -3,7 +3,7 @@ const multer = require('multer');
 const cloudinary = require('../cloudinaryConfig');
 const Asset = require('../models/Asset');
 const fs = require('fs');
-const { authorizeAdmin } = require('../middleware/auth');
+const { authorizeAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
