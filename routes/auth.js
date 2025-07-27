@@ -41,5 +41,35 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// REGISTER new user
+// POST /register
+router.post('/register', async (req, res) => {
+  try {
+    const { email, password, role } = req.body;
+
+    // check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+
+    // hash password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // create user
+    const newUser = new User({
+      email,
+      passwordHash,
+      role: role || 'user'
+    });
+
+    await newUser.save();
+
+    res.json({ message: 'User registered successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Export the router
 module.exports = router;

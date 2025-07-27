@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-// configure CORS: allow only your frontend hosted on Render
+// configure CORS
 const allowedOrigins = ['https://adicloud-hxf9.onrender.com'];
 app.use(cors({
   origin: function (origin, callback) {
