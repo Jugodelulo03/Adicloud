@@ -3,9 +3,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-//start express app
-const app = express();
-app.use(express.json());
+//new route
+const router = express.Router();
 
 // simulated database
 const users = [
@@ -13,7 +12,7 @@ const users = [
 ];
 
 // Login route
-app.post('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
 //check email
@@ -30,5 +29,5 @@ app.post('/login', async (req, res) => {
   res.json({ token });
 });
 
-// Server
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Export the router
+module.exports = router;
