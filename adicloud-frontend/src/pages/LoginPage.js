@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,6 +10,17 @@ function LoginPage() {
 
   // Hook to navigate between pages
   const navigate = useNavigate();
+
+  // Redirigir si ya hay sesión iniciada
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token && role === 'admin') {
+      navigate('/admin', { replace: true });
+    } else if (token && role === 'user') {
+      navigate('/user', { replace: true });
+    }
+  }, [navigate]);
 
   // Handle form submission
   const handleLogin = async (e) => {
