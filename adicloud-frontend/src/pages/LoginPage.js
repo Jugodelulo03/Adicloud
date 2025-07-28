@@ -33,6 +33,7 @@ function LoginPage() {
       } else {
         navigate('/user');
       }
+      window.location.reload();
     } catch (err) {
       // Show error message if login fails
       setError('Invalid credentials. Please try again.');
