@@ -28,6 +28,25 @@ function AdminDashboard() {
     fetchRequests();
   }, [statusFilter, token]);
 
+  // Function to update request status (Approve/Reject)
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await axios.patch(
+        `https://adicloud.onrender.com/requests/${id}/status`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      // Refresh the requests list after update
+      setRequests(prev =>
+        prev.map(req =>
+          req._id === id ? { ...req, status: newStatus } : req
+        )
+      );
+    } catch (err) {
+      console.error('Error updating status:', err);
+    }
+  };
+
   return (
     <div>
       <h2>Admin Dashboard</h2>
@@ -47,6 +66,13 @@ function AdminDashboard() {
             <strong>User:</strong> {req.userId?.email} | 
             <strong> Asset:</strong> {req.assetId?.name} |
             <strong> Status:</strong> {req.status}
+            {/* Show Approve/Reject buttons only if status is Pending */}
+            {req.status === 'Pending' && (
+              <>
+                <button onClick={() => updateStatus(req._id, 'Approved')}>Approve</button>
+                <button onClick={() => updateStatus(req._id, 'Rejected')}>Reject</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
