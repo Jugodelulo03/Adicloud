@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './LoginPage.css';
+import { ReactComponent as LogoA } from './assets/logo_tradicional.svg'
+import { ReactComponent as LogoB } from './assets/adicouldSOLO.svg';
 
 function LoginPage() {
   // Local state for email, password, and error messages
@@ -52,33 +55,41 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        {/* Email input */}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <div>
+      <LogoA className='logo'/> 
+      <div className="container">
+        <h2 className='titleLI'>Welcome back to 
+          <LogoB className='adicloud'/>
+        </h2>
+        <form onSubmit={handleLogin} className='form'>
+          <div className='space'>
+            {/* Email input */}
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className='textbox'
+              />
 
-        {/* Password input */}
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+            {/* Password input */}
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className='textbox'
+            />
+          </div>
+          {/* Submit button */}
+          <button type="submit" className='button'>Log in</button>
+        </form>
 
-        {/* Submit button */}
-        <button type="submit">Login</button>
-      </form>
-
-      {/* Display error message */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {/* Display error message */}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }
