@@ -1,0 +1,86 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  
+  .logoC {
+    width: 12.5%;
+    min-width: 140px;
+  }
+  
+  .menu1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: auto;
+  }
+  
+  .dropbtn{
+    background: none;
+    color:black;
+    letter-spacing: 1.6px;
+    font-size:16px; 
+    border: none;
+    width: auto;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px;
+    
+  }
+
+  .requestmenu {
+    position: relative;
+  }
+  
+  .dpdcont {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    padding: 17px;
+    border: 1px solid #eaeeef;
+    z-index: 1;
+  }
+
+  .dpdcont a{
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+    padding-right: 20px;
+    display: block;
+  }
+  
+  .dpdcont a:hover {
+    text-decoration: underline;
+  }
+
+  .dropbtn:hover{
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 14px;
+    text-decoration-color: #000; 
+  }
+
+  .requestmenu:hover .dpdcont {
+    display: block;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1.6px;
+  }
+  
+  .user-icon {
+    width: 18px;
+  }
+  

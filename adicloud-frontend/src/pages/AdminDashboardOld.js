@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CatergoryCard from './CategoryCard';
-import Header from './Header';
 
 function AdminDashboard() {
   const [requests, setRequests] = useState([]);
@@ -51,9 +49,7 @@ function AdminDashboard() {
 
   return (
     <div>
-      <Header />
-      <h1>View All</h1>
-      <h2>Requests</h2>
+      <h2>Admin Dashboard</h2>
 
       {/* Status filter dropdown */}
       <select onChange={(e) => setStatusFilter(e.target.value)} value={statusFilter}>

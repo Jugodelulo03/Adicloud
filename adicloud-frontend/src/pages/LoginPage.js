@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
-import { ReactComponent as LogoA } from './assets/logo_tradicional.svg'
+import { ReactComponent as LogoA } from './assets/logo_tradicional.svg';
 import { ReactComponent as LogoB } from './assets/adicouldSOLO.svg';
 
 function LoginPage() {
