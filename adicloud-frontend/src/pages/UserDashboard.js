@@ -90,7 +90,7 @@ function Main() {
       </div>
 
       {/* Asset List */}
-        <Link to={"/galery/${asset._id}"}>
+        <Link to={"/galery/${asset._id}"} className='nameAsset'>
           <ul className='conteinerMain'>
             {assets.map((asset) => (
               <AssetCard key={asset._id} asset={asset} />
