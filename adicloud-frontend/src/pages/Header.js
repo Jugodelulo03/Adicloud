@@ -5,6 +5,7 @@ import './dropdownmenuA.css';
 
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const [userName, setUserName] = useState('');
     const dropdownRef = useRef(null);
 
     useEffect(() => {
@@ -18,6 +19,26 @@ const Header = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            fetch('https://adicloud.onrender.com/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.user && data.user.name) {
+                    setUserName(data.user.name);
+                } else {
+                    setUserName('user');
+                }
+            })
+            .catch(() => setUserName('userName'));
+        }
     }, []);
 
     return(
@@ -38,7 +59,7 @@ const Header = () => {
                 </nav>
                 <div className="user-info" ref={dropdownRef}>
                     <div className="profile-menu" onClick={() => setShowDropdown(!showDropdown)}>
-                        <span className='maxW'>Hi, Maria</span>
+                        <span>Hi, {userName || '...'}</span>
                         <img src={IconProfile} alt="Usuario" className="user-icon" />
                     </div>
 

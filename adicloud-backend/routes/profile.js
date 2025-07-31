@@ -11,7 +11,7 @@ router.get('/profile', (req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.status(403).json({ error: 'Invalid or expired token' });
-    res.json({ message: `Welcome, ${user.name}! This is your profile.` });
+    res.json({ user });
   });
 });
 
