@@ -20,7 +20,7 @@ function App() {
         {/* ADMIN */}
         {/* Admin dashboard, protected */}
         <Route
-          path="/dashboard"
+          path="/dashboard/:status?"
           element={token && role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />}
         />
 

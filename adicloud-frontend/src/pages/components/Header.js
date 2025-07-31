@@ -47,12 +47,12 @@ const Header = ({ statusFilter, setStatusFilter }) => {
                     <img src={LogoC} alt="Logo" className="logoC" />
                 <nav className="menu1">
                     <div className="requestmenu">
-                        <button className= "dropbtn">Requests</button>
+                        <a href="/dashboard" className= "dropbtn">Requests</a>
                         <div className="dpdcont">
-                            <a className={statusFilter === '' ? 'active' : ''} onClick={() => setStatusFilter('')}>All</a>
-                            <a className={statusFilter === 'Pending' ? 'active' : ''} onClick={() => setStatusFilter('Pending')}>Pending</a>
-                            <a className={statusFilter === 'Approved' ? 'active' : ''} onClick={() => setStatusFilter('Approved')}>Approved</a>
-                            <a className={statusFilter === 'Rejected' ? 'active' : ''} onClick={() => setStatusFilter('Rejected')}>Rejected</a>
+                            <a href="/dashboard">All</a>
+                            <a href="/dashboard/Pending" >Pending</a>
+                            <a href="/dashboard/Approved" >Approved</a>
+                            <a href="/dashboard/Rejected">Rejected</a>
                         </div>
                     </div>
                     <a href="/" className= "dropbtn gallery"> Gallery</a>
