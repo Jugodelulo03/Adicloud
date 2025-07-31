@@ -90,11 +90,13 @@ function Main() {
       </div>
 
       {/* Asset List */}
-      <ul className='conteinerMain'>
-        {assets.map((asset) => (
-          <AssetCard key={asset._id} asset={asset} />
-        ))}
-      </ul>
+        <Link to={"/galery/${asset._id}"}>
+          <ul className='conteinerMain'>
+            {assets.map((asset) => (
+              <AssetCard key={asset._id} asset={asset} />
+            ))}
+          </ul>
+        </Link>
     </div>
   );
 }

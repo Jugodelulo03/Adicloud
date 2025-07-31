@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/O_UserDashboard";
+import UserDashboard from "./pages/UserDashboard";
 import AssetsView from "./pages/AssetsView";
 import MyRequests from "./pages/MyRequests"; 
 
