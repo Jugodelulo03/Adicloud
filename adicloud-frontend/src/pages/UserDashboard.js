@@ -53,14 +53,38 @@ function Main() {
       <h2>User Dashboard</h2>
 
       {/* Category Filter */}
-      <select onChange={(e) => setCategoryFilter(e.target.value)} value={categoryFilter}>
-        <option value="">All Categories</option>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <button
+          onClick={() => setCategoryFilter('')}
+          style={{
+            backgroundColor: categoryFilter === '' ? '#007bff' : '#e0e0e0',
+            color: categoryFilter === '' ? '#fff' : '#000',
+            padding: '6px 12px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          All Categories
+        </button>
+
         {categories.map((cat, idx) => (
-          <option key={idx} value={cat}>
+          <button
+            key={idx}
+            onClick={() => setCategoryFilter(cat)}
+            style={{
+              backgroundColor: categoryFilter === cat ? '#007bff' : '#e0e0e0',
+              color: categoryFilter === cat ? '#fff' : '#000',
+              padding: '6px 12px',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
             {cat}
-          </option>
+          </button>
         ))}
-      </select>
+      </div>
 
       {/* Asset List */}
       <ul>
@@ -75,7 +99,7 @@ function Main() {
               />
             )}
             <br />
-            <strong>{asset.name}</strong> - {asset.category}
+            <strong>{asset.name}</strong>
           </li>
         ))}
       </ul>

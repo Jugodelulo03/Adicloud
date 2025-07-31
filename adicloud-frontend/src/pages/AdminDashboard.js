@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'; // Import axios for making HTTP requests
 import RequestCard from './components/RequestCard';
 import Header from './components/Header';
 import './Admindash.css';
@@ -58,12 +58,22 @@ function AdminDashboard() {
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} />
       <div className='body'>
         <h1>View {status || "All"}</h1>
+        <h2>Requests</h2>
         <ul>
           {requests.map((req) => (
             <li key={req._id}>
-              <strong>User:</strong> {req.userId?.email} | 
-              <strong> Asset:</strong> {req.assetId?.name} |
-              <strong> Status:</strong> {req.status}
+              <img
+                src={req.assetId?.files[0]}
+                alt={req.assetId?.name}
+                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+              />
+              {req.assetId?.name} |
+              {req.assetId?.files?.length} files |
+              <strong> To:</strong> {req.userId?.email} |
+              <strong> Purpose:</strong> {req.purpose}|
+              <strong> Requested:</strong> {req.assetId?.createdAt}|
+              <strong> Deadline:</strong> {req.deadline}|
+              <strong> Status:</strong> {req.status}|
               {req.status === 'Pending' && (
                 <>
                   <button onClick={() => updateStatus(req._id, 'Approved')}>Approve</button>
