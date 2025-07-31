@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import CategoryCard from './components/CategoryCard';
 import AssetCard from './components/AssetCard';
 import './UserDash.css';
+import { Link } from 'react-router-dom';
+
 
 function Main() {
   const [assets, setAssets] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
 
   // Fetch categories from backend
   useEffect(() => {
@@ -56,14 +56,38 @@ function Main() {
       <h2>User Dashboard</h2>
        
       {/* Category Filter */}
-      <select onChange={(e) => setCategoryFilter(e.target.value)} value={categoryFilter}>
-        <option value="">All Categories</option>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <button
+          onClick={() => setCategoryFilter('')}
+          style={{
+            backgroundColor: categoryFilter === '' ? '#007bff' : '#e0e0e0',
+            color: categoryFilter === '' ? '#fff' : '#000',
+            padding: '6px 12px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          All Categories
+        </button>
+
         {categories.map((cat, idx) => (
-          <option key={idx} value={cat}>
+          <button
+            key={idx}
+            onClick={() => setCategoryFilter(cat)}
+            style={{
+              backgroundColor: categoryFilter === cat ? '#007bff' : '#e0e0e0',
+              color: categoryFilter === cat ? '#fff' : '#000',
+              padding: '6px 12px',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
             {cat}
-          </option>
+          </button>
         ))}
-      </select>
+      </div>
 
       {/* Asset List */}
       <ul className='conteinerMain'>

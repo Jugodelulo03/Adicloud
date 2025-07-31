@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/UserDashboard"; // User Dashboard
-import MyRequests from "./pages/MyRequests"; // Page to show user's requests
+import UserDashboard from "./pages/O_UserDashboard";
+import AssetsView from "./pages/AssetsView";
+import MyRequests from "./pages/MyRequests"; 
 
 function App() {
   const token = localStorage.getItem('token');
@@ -15,7 +16,6 @@ function App() {
         
         {/* Login page */}
         <Route path="/" element={<LoginPage />} />
-
 
         {/* ADMIN */}
         {/* Admin dashboard, protected */}
@@ -31,11 +31,19 @@ function App() {
           element={token && role === 'user' ? <UserDashboard /> : <Navigate to="/" />}
         />
 
+        <Route
+          path="/galery/:idAsset"
+          element={token && role === 'user' ? <AssetsView /> : <Navigate to="/" />}
+        />
+
         {/* User requests page, protected */}
         <Route
           path="/myrequests"
           element={token && role === 'user' ? <MyRequests /> : <Navigate to="/" />}
         />
+
+        {/* Catch-all route: redirects any unknown path to login <Route path="*" element={<Navigate to="/" />} /> */}
+        
       </Routes>
     </Router>
   );
