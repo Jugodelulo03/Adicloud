@@ -69,9 +69,9 @@ function AdminDashboard() {
               />
               {req.assetId?.name} |
               {req.assetId?.files?.length} files |
-              <strong> To:</strong> {req.userId?.email} |
+              <strong> To:</strong> {req.userId?.name} |
               <strong> Purpose:</strong> {req.purpose}|
-              <strong> Requested:</strong> {req.assetId?.createdAt}|
+              <strong> Requested:</strong> {req.createdAt}|
               <strong> Deadline:</strong> {req.deadline}|
               <strong> Status:</strong> {req.status}|
               {req.status === 'Pending' && (
