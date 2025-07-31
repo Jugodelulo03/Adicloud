@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import LogoC from './assets/adicould.svg';
-import IconProfile from './assets/icon_profile.svg';
-import './dropdownmenuA.css';
+import LogoC from '../assets/adicould.svg';
+import IconProfile from '../assets/icon_profile.svg';
+import '../dropdownmenuA.css';
 
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(false);

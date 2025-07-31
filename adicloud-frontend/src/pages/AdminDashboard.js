@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CatergoryCard from './CategoryCard';
-import Header from './Header';
+import Header from './components/Header';
 
 function AdminDashboard() {
   const [requests, setRequests] = useState([]);
