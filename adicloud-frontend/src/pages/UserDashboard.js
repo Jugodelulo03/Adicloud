@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
+import { Link } from 'react-router-dom';
+
 
 function Main() {
   const [assets, setAssets] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
 
   // Fetch categories from backend
   useEffect(() => {
@@ -90,6 +90,7 @@ function Main() {
       <ul>
         {assets.map((asset) => (
           <li key={asset._id} style={{ marginBottom: '20px' }}>
+            <Link to={`/galery/${asset._id}`}>
             {/* Show first image only */}
             {asset.files.length > 0 && (
               <img
@@ -100,6 +101,7 @@ function Main() {
             )}
             <br />
             <strong>{asset.name}</strong>
+            </Link>
           </li>
         ))}
       </ul>

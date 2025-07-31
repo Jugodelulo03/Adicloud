@@ -71,4 +71,18 @@ router.get('/assets/categories', async (req, res) => {
   }
 });
 
+// GET /assets/:id - retrieve single asset by ID
+router.get('/assets/:id', async (req, res) => {
+  try {
+    const asset = await Asset.findById(req.params.id);
+    if (!asset) {
+      return res.status(404).json({ error: 'Asset not found' });
+    }
+    res.json(asset);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
+
+
 module.exports = router;

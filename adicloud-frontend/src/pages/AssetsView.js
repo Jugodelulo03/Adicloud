@@ -17,14 +17,10 @@ function UserRequestForm() {
   useEffect(() => {
     const fetchAsset = async () => {
       try {
-        const res = await axios.get(`https://adicloud.onrender.com/assets?id=${idAsset}`, {
+        const res = await axios.get(`https://adicloud.onrender.com/assets/${idAsset}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-
-        // The backend returns an array, so we pick the first
-        if (res.data.length > 0) {
-          setAsset(res.data[0]);
-        }
+        setAsset(res.data);
       } catch (err) {
         console.error('Error fetching asset:', err);
       }
@@ -48,7 +44,7 @@ function UserRequestForm() {
       });
 
       setMessage('Request submitted successfully!');
-      setTimeout(() => navigate('/user'), 2000); // return to main after 2s
+      setTimeout(() => navigate('/galery'), 2000); // return to main after 2s
     } catch (err) {
       console.error('Error creating request:', err);
       setMessage('Failed to submit request');
@@ -59,7 +55,7 @@ function UserRequestForm() {
 
   return (
     <div>
-      <h2>Request Asset: {asset.name}</h2>
+      <h2>{asset.name}</h2>
       <p><strong>Category:</strong> {asset.category}</p>
       <p><strong>Number of files:</strong> {asset.files.length}</p>
 
