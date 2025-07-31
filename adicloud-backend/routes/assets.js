@@ -61,4 +61,14 @@ router.get('/assets', async (req, res) => {
   }
 });
 
+// GET /assets/categories - get unique categories
+router.get('/assets/categories', async (req, res) => {
+  try {
+    const categories = await Asset.distinct('category');
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
+
 module.exports = router;

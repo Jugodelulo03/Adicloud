@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Header from './components/Header';
 
 function Main() {
   const [assets, setAssets] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
-  // Fetch all assets or by category
+  // Fetch categories from backend
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get('https://adicloud.onrender.com/assets/categories', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCategories(res.data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, [token]);
+
+  // Fetch assets based on selected category
   useEffect(() => {
     const fetchAssets = async () => {
       try {
@@ -18,7 +36,7 @@ function Main() {
         }
 
         const res = await axios.get(url, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         setAssets(res.data);
@@ -32,33 +50,33 @@ function Main() {
 
   return (
     <div>
+      <Header />
       <h2>User Dashboard</h2>
 
-      {/* Button to go to My Requests */}
-      <button onClick={() => navigate('/user/requests')}>
-        View My Requests
-      </button>
-
-      {/* Category filter */}
+      {/* Category Filter */}
       <select onChange={(e) => setCategoryFilter(e.target.value)} value={categoryFilter}>
         <option value="">All Categories</option>
-        <option value="Marketing">Marketing</option>
-        <option value="PromoPack">PromoPack</option>
-        {/* Add more categories as needed */}
+        {categories.map((cat, idx) => (
+          <option key={idx} value={cat}>
+            {cat}
+          </option>
+        ))}
       </select>
 
-      {/* List of assets */}
+      {/* Asset List */}
       <ul>
         {assets.map((asset) => (
-          <li key={asset._id}>
+          <li key={asset._id} style={{ marginBottom: '20px' }}>
+            {/* Show first image only */}
+            {asset.files.length > 0 && (
+              <img
+                src={asset.files[0]}
+                alt={asset.name}
+                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+              />
+            )}
+            <br />
             <strong>{asset.name}</strong> - {asset.category}
-            <ul>
-              {asset.files.map((file, index) => (
-                <li key={index}>
-                  <a href={file} target="_blank" rel="noopener noreferrer">View File {index + 1}</a>
-                </li>
-              ))}
-            </ul>
           </li>
         ))}
       </ul>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from './components/Header';
+
 
 function MyRequests() {
   const [requests, setRequests] = useState([]);
@@ -27,6 +29,7 @@ function MyRequests() {
 
   return (
     <div>
+      <Header />
       <h2>My Requests</h2>
 
       {/* Pending Requests */}
