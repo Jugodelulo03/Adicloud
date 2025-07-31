@@ -59,16 +59,18 @@ function AdminDashboard() {
       <div className='body'>
         <h1>View {status || "All"}</h1>
         <h2>Requests</h2>
-        <ul className='ConteinerMain'>
-          {requests.map((req) => (
-            <RequestCard 
-              key={req._id}
-              request={req}
-              onApprove={()=> updateStatus(req.id, "Approved")}
-              onReject={() => updateStatus(req._id, 'Rejected')}
-            />
-          ))}
-        </ul>
+        <div className='overflow'>
+          <ul className='ConteinerMain'>
+            {requests.map((req) => (
+              <RequestCard 
+                key={req._id}
+                request={req}
+                onApprove={()=> updateStatus(req.id, "Approved")}
+                onReject={() => updateStatus(req._id, 'Rejected')}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

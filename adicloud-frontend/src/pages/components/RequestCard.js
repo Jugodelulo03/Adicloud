@@ -10,6 +10,11 @@ function RequestCard({request, onApprove, onReject}){
                 alt={request.assetId?.name}
                 className="imgRequest"
             />
+            <img
+                src={request.assetId?.files[1]}
+                alt={request.assetId?.name+'hover'}
+                className="imgRequesth"
+            />
             <div className="infoRequest">
                 <div className="text">
                     <p className="nameAsset">{request.assetId?.name} </p>
@@ -21,20 +26,12 @@ function RequestCard({request, onApprove, onReject}){
                 </div>
 
                 <div className="rightpanel">
-                    {request.status === 'Approved' && (
-                        <p className="Blue">{request.status}</p>
-                    )} 
-                    {request.status === 'Rejected' && (
-                        <p className="Red">{request.status}</p>
-                    )} 
-                    {request.status === 'Pending' && (
-                        <p className="normal">{request.status}</p>
-                    )}
+                    <p className={`status-text ${request.status}`}>{request.status}</p>
 
                     {request.status === 'Pending' && (
                         <div className="request-actions">
-                            <button onClick={() => onApprove(request._id)}>Approve</button>
-                            <button onClick={() => onReject(request._id)}>Reject</button>
+                            <button onClick={() => onApprove(request._id)} className="bottonRequest">Approve</button>
+                            <button onClick={() => onReject(request._id)} className="bottonRequest">Reject</button>
                         </div>
                     )}
                 </div>

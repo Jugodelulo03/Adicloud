@@ -6,11 +6,11 @@ p{
 }
 
 .request-card{
-    position: relative;
-    width: 371px;
+    max-width: 372px;
     overflow: hidden;
     cursor: pointer;
     list-style: none;
+    position: relative;
     
 }
 
@@ -22,6 +22,7 @@ p{
 .infoRequest{
     display: flex;
     width: 100%;
+    justify-content: space-between;
 }
 
 .request-actions{
@@ -32,7 +33,7 @@ p{
 }
 
 .rightpanel{
-    width: 146px;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,20 +43,58 @@ p{
 
 .imgRequest{
     width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
 }
 
-.Blue{
+.status-text{
+    font-weight: bold;
+}
+
+.status-text.Approved{
     color: #007BC6;
-    font-weight: bold;
 }
 
-.Red{
+.status-text.Rejected{
     color: #E32B2B;
-    font-weight: bold;
 }
 
-.normal{
+.status-text.Pending{
     color: black;
-    font-weight: bold;
 
+}
+
+.bottonRequest{
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    max-width: 64.61px;
+    align-content: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.imgRequesth{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+li:hover .imgRequesth{
+    opacity: 1;
+}
+
+.request-card:hover{
+    border: 2px solid black;
+}
+
+.text{
+    border-right: 2px solid #edeff1;
+    padding-right: 5px;
 }

@@ -35,6 +35,7 @@ button{
     position: relative;
     cursor: pointer;
     text-transform: capitalize;
+    font-family: 'Assistan', Helvetica, Arial, sans-serif;
 }
 
 .button::after{
@@ -81,4 +82,12 @@ body{
     margin-top: 1.25%;
     margin-left: 2%;
     width: 63px;
+}
+
+h1{
+    font-size: 39px;
+}
+
+h2{
+    font-size: 29px;
 }

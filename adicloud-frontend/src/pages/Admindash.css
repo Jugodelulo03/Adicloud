@@ -5,6 +5,9 @@
 
 .ConteinerMain{
     padding: 0;
-    display: flex;
+    display: grid;
     gap: 11px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    overflow-y: auto;
+    overflow-x: hidden;
 }
