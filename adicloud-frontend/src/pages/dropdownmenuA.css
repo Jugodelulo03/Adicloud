@@ -1,15 +1,15 @@
 .header{
   border-bottom: 1px solid #edeff1;
   justify-content: center;
+  font-family: 'Assistant', Helvetica, Arial, sans-serif;
 }
 .headerbox {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 10px;
   margin-right: 5px;
 }
-  
+
 .logoC {
   width: 240px;
 }
@@ -31,7 +31,8 @@
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
-  padding: 12px;
+  padding: 26px;
+  font-family: 'Assistant', Helvetica, Arial, sans-serif;
   
 }
 
@@ -67,7 +68,7 @@
 .dropbtn:hover{
   text-decoration: underline;
   text-decoration-thickness: 2px;
-  text-underline-offset: 14px;
+  text-underline-offset: 29px;
   text-decoration-color: #000; 
 }
 
@@ -83,11 +84,14 @@
   font-weight: 400;
   width: 240px;
   justify-content: right;
+  letter-spacing: 1px;
 }
 
 .maxW{
   max-width: 216px;
   overflow: hidden;
+  align-content: center;
+  letter-spacing: 1px;
 }
 
 .user-icon {
@@ -104,7 +108,7 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 7.5%;
+  top: 7%;
   right: 0;
   background-color: white;
   border: 1px solid #eaeeef;

@@ -59,7 +59,7 @@ const Header = () => {
                 </nav>
                 <div className="user-info" ref={dropdownRef}>
                     <div className="profile-menu" onClick={() => setShowDropdown(!showDropdown)}>
-                        <span>Hi, {userName || '...'}</span>
+                        <span className='maxW'>Hi, {userName || '...'}</span>
                         <img src={IconProfile} alt="Usuario" className="user-icon" />
                     </div>
 
