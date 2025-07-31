@@ -19,7 +19,7 @@ function LoginPage() {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     if (token && role === 'admin') {
-      navigate('/requests', { replace: true });
+      navigate('/dashboard', { replace: true });
     } else if (token && role === 'user') {
       navigate('/galery', { replace: true });
     }
@@ -43,7 +43,7 @@ function LoginPage() {
 
       // Check user role and redirect accordingly
       if (response.data.role === 'admin') {
-        navigate('/requests');
+        navigate('/dashboard');
       } else {
         navigate('/galery');
       }

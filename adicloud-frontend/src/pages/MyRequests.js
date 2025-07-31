@@ -29,7 +29,6 @@ function MyRequests() {
 
   return (
     <div>
-      <Header />
       <h2>My Requests</h2>
 
       {/* Pending Requests */}

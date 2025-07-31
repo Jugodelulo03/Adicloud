@@ -3,7 +3,7 @@ import LogoC from '../assets/adicould.svg';
 import IconProfile from '../assets/icon_profile.svg';
 import '../dropdownmenuA.css';
 
-const Header = () => {
+const Header = ({ statusFilter, setStatusFilter }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState('');
     const dropdownRef = useRef(null);
@@ -49,15 +49,15 @@ const Header = () => {
                     <div className="requestmenu">
                         <button className= "dropbtn">Requests</button>
                         <div className="dpdcont">
-                            <a href="/requests">View All</a>
-                            <a href="/requests/status/:pending">Pending</a>
-                            <a href="/requests/status/:approved">Approved</a>
-                            <a href="/requests/status/:rejected">Rejected</a>
-                            
+                            <a className={statusFilter === '' ? 'active' : ''} onClick={() => setStatusFilter('')}>All</a>
+                            <a className={statusFilter === 'Pending' ? 'active' : ''} onClick={() => setStatusFilter('Pending')}>Pending</a>
+                            <a className={statusFilter === 'Approved' ? 'active' : ''} onClick={() => setStatusFilter('Approved')}>Approved</a>
+                            <a className={statusFilter === 'Rejected' ? 'active' : ''} onClick={() => setStatusFilter('Rejected')}>Rejected</a>
                         </div>
                     </div>
                     <a href="/" className= "dropbtn gallery"> Gallery</a>
                 </nav>
+
                 <div className="user-info" ref={dropdownRef}>
                     <div className="profile-menu" onClick={() => setShowDropdown(!showDropdown)}>
                         <span className='maxW'>Hi, {userName || '...'}</span>

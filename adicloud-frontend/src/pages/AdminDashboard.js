@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import RequestCard from '.components/RequestCard';
+import RequestCard from './components/RequestCard';
 import Header from './components/Header';
 import './Admindash.css'
 
 function AdminDashboard() {
   const [requests, setRequests] = useState([]);
-  const [statusFilter, setStatusFilter] = useState(''); // '' = all
+  const [statusFilter, setStatusFilter] = useState('');
   const token = localStorage.getItem('token');
 
   // Fetch requests from backend based on status filter
@@ -52,18 +52,16 @@ function AdminDashboard() {
 
   return (
     <div>
-      <Header />
+      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} />
       <div className='body'>
         <h1>View All</h1>
-        <h2>Requests</h2>
 
-        {/* Status filter dropdown */}
-        <select onChange={(e) => setStatusFilter(e.target.value)} value={statusFilter}>
-          <option value="">All</option>
-          <option value="Pending">Pending</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
-        </select>
+        <div className="dpdcont">
+                            <a className={statusFilter === '' ? 'active' : ''} onClick={() => setStatusFilter('')}>All</a>
+                            <a className={statusFilter === 'Pending' ? 'active' : ''} onClick={() => setStatusFilter('Pending')}>Pending</a>
+                            <a className={statusFilter === 'Approved' ? 'active' : ''} onClick={() => setStatusFilter('Approved')}>Approved</a>
+                            <a className={statusFilter === 'Rejected' ? 'active' : ''} onClick={() => setStatusFilter('Rejected')}>Rejected</a>
+                        </div>
 
         {/* Requests list */}
         <ul>
