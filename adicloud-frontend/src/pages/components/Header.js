@@ -49,23 +49,24 @@ const Header = () => {
                     <div className="requestmenu">
                         <button className= "dropbtn">Requests</button>
                         <div className="dpdcont">
-                            <a href="/adicloud-frontend\src\pages\AdminDashboard.js">View All</a>
-                            <a href="/">Pending</a>
-                            <a href="/">Approved</a>
-                            <a href="/">Rejected</a>
+                            <a href="/requests">View All</a>
+                            <a href="/requests/status/:pending">Pending</a>
+                            <a href="/requests/status/:approved">Approved</a>
+                            <a href="/requests/status/:rejected">Rejected</a>
+                            
                         </div>
                     </div>
                     <a href="/" className= "dropbtn gallery"> Gallery</a>
                 </nav>
                 <div className="user-info" ref={dropdownRef}>
                     <div className="profile-menu" onClick={() => setShowDropdown(!showDropdown)}>
-                        <span>Hi, {userName || '...'}</span>
+                        <span className='maxW'>Hi, {userName || '...'}</span>
                         <img src={IconProfile} alt="Usuario" className="user-icon" />
                     </div>
 
                     {showDropdown && (
                     <div className="profile-dropdown">
-                        <a href="/adicloud-frontend\src\pages\AdminDashboard.js">Requests</a>
+                        <a href="/requests">Requests</a>
                         <a href="/">Log Out</a>
                     </div>
                     )}

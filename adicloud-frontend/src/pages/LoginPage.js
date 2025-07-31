@@ -19,9 +19,9 @@ function LoginPage() {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     if (token && role === 'admin') {
-      navigate('/admin', { replace: true });
+      navigate('/requests', { replace: true });
     } else if (token && role === 'user') {
-      navigate('/user', { replace: true });
+      navigate('/galery', { replace: true });
     }
   }, [navigate]);
 
@@ -43,9 +43,9 @@ function LoginPage() {
 
       // Check user role and redirect accordingly
       if (response.data.role === 'admin') {
-        navigate('/admin');
+        navigate('/requests');
       } else {
-        navigate('/user');
+        navigate('/galery');
       }
       window.location.reload();
     } catch (err) {
