@@ -5,4 +5,10 @@
 .conteinerMain{
     display: flex;
     gap: 11px;
+    padding: 0;
+}
+
+.nameAsset{
+    text-decoration: none;
+    color: black;
 }
