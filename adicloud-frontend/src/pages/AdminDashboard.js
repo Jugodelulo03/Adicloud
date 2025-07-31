@@ -58,8 +58,8 @@ function AdminDashboard() {
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} />
       <div className='body'>
         <h1>View {status || "All"}</h1>
-        <h2>Requests</h2>
-        <div className='overflow'>
+        <h2>REQUESTS</h2>
+        <div>
           <ul className='ConteinerMain'>
             {requests.map((req) => (
               <RequestCard 

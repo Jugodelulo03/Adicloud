@@ -1,9 +1,10 @@
 .AssetConteiner{
-    position: relative;
-    width: 371px;
+    max-width: 372px;
     overflow: hidden;
     cursor: pointer;
-    list-style: none; 
+    list-style: none;
+    position: relative;
+    padding: 0; 
 }
 
 .prevasset{

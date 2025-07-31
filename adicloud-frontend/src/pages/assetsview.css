@@ -1,0 +1,54 @@
+.body{
+    margin-left: 10.4%;
+    margin-right: 10.4%;
+    display: flex;
+    justify-content: space-between;
+}
+.TransformTitle{
+    text-transform: capitalize;
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 100vh;
+}
+
+.AssetsFilesView {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  flex: 1;
+}
+
+.AssetPrev {
+  width: 100%;
+  object-fit: contain;
+}
+
+.RightPanel {
+  width: 360px;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 35px;
+}
+
+.InfoAssets p {
+  margin: 8px 0;
+  color: #444;
+  font-size: 16px;
+}
+
+
+.RightPanel form input {
+  width: 100%;
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+

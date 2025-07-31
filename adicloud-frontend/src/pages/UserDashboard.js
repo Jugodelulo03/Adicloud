@@ -50,7 +50,6 @@ function Main() {
 
     fetchAssets();
   }, [categoryFilter, token]);
-  console.log('Assets:', assets);
   return (
     <div className='body'>
       <h2>User Dashboard</h2>
@@ -90,13 +89,15 @@ function Main() {
       </div>
 
       {/* Asset List */}
+        <div>
           <ul className='conteinerMain'>
             {assets.map((asset) => (
-               <Link to={`/galery/${asset._id}`}>
-              <AssetCard key={asset._id} asset={asset} />
+              <Link to={`/galery/${asset._id}`} className='nameAsset'>
+                <AssetCard key={asset._id} asset={asset} />
               </Link>
             ))}
           </ul>
+        </div>
     </div>
   );
 }

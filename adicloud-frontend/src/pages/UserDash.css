@@ -2,13 +2,18 @@
     margin-left: 10.4%;
     margin-right: 10.4%;
 }
+
 .conteinerMain{
-    display: flex;
-    gap: 11px;
     padding: 0;
+    display: grid;
+    gap: 11px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .nameAsset{
     text-decoration: none;
     color: black;
+    font-weight: inherit;
 }

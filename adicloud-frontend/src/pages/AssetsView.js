@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import './assetsview.css';
 
 function UserRequestForm() {
   const { idAsset } = useParams();
@@ -54,37 +55,41 @@ function UserRequestForm() {
   if (!asset) return <p>Loading asset...</p>;
 
   return (
-    <div>
-      <h2>{asset.name}</h2>
-      <p><strong>Category:</strong> {asset.category}</p>
-      <p><strong>Number of files:</strong> {asset.files.length}</p>
-
+    <div className='body'>
       {/* Show all images */}
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+      <div className='AssetsFilesView'>
         {asset.files.map((url, idx) => (
-          <img key={idx} src={url} alt={`Asset ${idx}`} style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
+          <img key={idx} src={url} alt={`Asset ${idx}`} className='AssetPrev' />
         ))}
       </div>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-        <input
-          type="text"
-          placeholder="Purpose"
-          value={purpose}
-          onChange={(e) => setPurpose(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit">Submit Request</button>
-      </form>
+      <div className='RightPanel'>
+        <h2 className='TransformTitle'>{asset.name}</h2>
+        <div className='InfoAssets'>
+          <p><strong>Category:</strong> {asset.category}</p>
+          <p><strong>Number of files:</strong> {asset.files.length}</p>
+        </div>
 
+
+        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+          <input
+            type="text"
+            placeholder="Purpose"
+            value={purpose}
+            onChange={(e) => setPurpose(e.target.value)}
+            required
+          />
+          <br />
+          <input
+            type="date"
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            required
+          />
+          <br />
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
       {message && <p>{message}</p>}
     </div>
   );
