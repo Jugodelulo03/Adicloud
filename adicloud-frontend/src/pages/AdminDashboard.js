@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CatergoryCard from './CategoryCard';
+import RequestCard from '.components/RequestCard';
 import Header from './components/Header';
+import './Admindash.css'
 
 function AdminDashboard() {
   const [requests, setRequests] = useState([]);
@@ -52,34 +53,36 @@ function AdminDashboard() {
   return (
     <div>
       <Header />
-      <h1>View All</h1>
-      <h2>Requests</h2>
+      <div className='body'>
+        <h1>View All</h1>
+        <h2>Requests</h2>
 
-      {/* Status filter dropdown */}
-      <select onChange={(e) => setStatusFilter(e.target.value)} value={statusFilter}>
-        <option value="">All</option>
-        <option value="Pending">Pending</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-      </select>
+        {/* Status filter dropdown */}
+        <select onChange={(e) => setStatusFilter(e.target.value)} value={statusFilter}>
+          <option value="">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
 
-      {/* Requests list */}
-      <ul>
-        {requests.map((req) => (
-          <li key={req._id}>
-            <strong>User:</strong> {req.userId?.email} | 
-            <strong> Asset:</strong> {req.assetId?.name} |
-            <strong> Status:</strong> {req.status}
-            {/* Show Approve/Reject buttons only if status is Pending */}
-            {req.status === 'Pending' && (
-              <>
-                <button onClick={() => updateStatus(req._id, 'Approved')}>Approve</button>
-                <button onClick={() => updateStatus(req._id, 'Rejected')}>Reject</button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+        {/* Requests list */}
+        <ul>
+          {requests.map((req) => (
+            <li key={req._id}>
+              <strong>User:</strong> {req.userId?.email} | 
+              <strong> Asset:</strong> {req.assetId?.name} |
+              <strong> Status:</strong> {req.status}
+              {/* Show Approve/Reject buttons only if status is Pending */}
+              {req.status === 'Pending' && (
+                <>
+                  <button onClick={() => updateStatus(req._id, 'Approved')}>Approve</button>
+                  <button onClick={() => updateStatus(req._id, 'Rejected')}>Reject</button>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
