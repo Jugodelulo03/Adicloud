@@ -1,0 +1,8 @@
+.body{
+    margin-left: 10.4%;
+    margin-right: 10.4%;
+}
+.conteinerMain{
+    display: flex;
+    gap: 11px;
+}

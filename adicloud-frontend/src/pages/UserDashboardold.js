@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import CategoryCard from './components/CategoryCard';
-import AssetCard from './components/AssetCard';
-import './UserDash.css';
 
 function Main() {
   const [assets, setAssets] = useState([]);
@@ -50,11 +48,11 @@ function Main() {
 
     fetchAssets();
   }, [categoryFilter, token]);
-  console.log('Assets:', assets);
+
   return (
-    <div className='body'>
+    <div>
       <h2>User Dashboard</h2>
-       
+
       {/* Category Filter */}
       <select onChange={(e) => setCategoryFilter(e.target.value)} value={categoryFilter}>
         <option value="">All Categories</option>
@@ -66,9 +64,20 @@ function Main() {
       </select>
 
       {/* Asset List */}
-      <ul className='conteinerMain'>
+      <ul>
         {assets.map((asset) => (
-          <AssetCard key={asset._id} asset={asset} />
+          <li key={asset._id} style={{ marginBottom: '20px' }}>
+            {/* Show first image only */}
+            {asset.files.length > 0 && (
+              <img
+                src={asset.files[0]}
+                alt={asset.name}
+                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+              />
+            )}
+            <br />
+            <strong>{asset.name}</strong> - {asset.category}
+          </li>
         ))}
       </ul>
     </div>

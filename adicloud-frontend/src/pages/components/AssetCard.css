@@ -1,0 +1,48 @@
+.AssetConteiner{
+    position: relative;
+    width: 371px;
+    overflow: hidden;
+    cursor: pointer;
+    list-style: none; 
+}
+
+.prevasset{
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.hoverImage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+li:hover .hoverImage{
+    opacity: 1;
+}
+
+.AssetTitle{
+    text-transform: capitalize;
+    font-weight: 700;
+    
+}
+
+.AssetConteiner:hover{
+    border: 2px solid black;
+}
+
+.ConteinerInfoAssets{
+    font-size: 14px;
+    letter-spacing: 1.4px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 9px;
+}
