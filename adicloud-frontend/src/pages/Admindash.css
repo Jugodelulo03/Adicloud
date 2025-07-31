@@ -2,3 +2,9 @@
     margin-left: 10.4%;
     margin-right: 10.4%;
 }
+
+.ConteinerMain{
+    padding: 0;
+    display: flex;
+    gap: 11px;
+}

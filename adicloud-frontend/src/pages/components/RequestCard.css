@@ -1,0 +1,61 @@
+p{
+    margin: 0;
+    text-transform: capitalize;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.request-card{
+    position: relative;
+    width: 371px;
+    overflow: hidden;
+    cursor: pointer;
+    list-style: none;
+    
+}
+
+.nameAsset{
+    font-weight: bold;
+}
+
+
+.infoRequest{
+    display: flex;
+    width: 100%;
+}
+
+.request-actions{
+    width: 146px;
+    display: flex;
+    gap: 11px;
+    height: auto;
+}
+
+.rightpanel{
+    width: 146px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    height: auto;
+}
+
+.imgRequest{
+    width: 100%;
+}
+
+.Blue{
+    color: #007BC6;
+    font-weight: bold;
+}
+
+.Red{
+    color: #E32B2B;
+    font-weight: bold;
+}
+
+.normal{
+    color: black;
+    font-weight: bold;
+
+}

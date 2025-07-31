@@ -59,28 +59,14 @@ function AdminDashboard() {
       <div className='body'>
         <h1>View {status || "All"}</h1>
         <h2>Requests</h2>
-        <ul>
+        <ul className='ConteinerMain'>
           {requests.map((req) => (
-            <li key={req._id}>
-              <img
-                src={req.assetId?.files[0]}
-                alt={req.assetId?.name}
-                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
-              />
-              {req.assetId?.name} |
-              {req.assetId?.files?.length} files |
-              <strong> To:</strong> {req.userId?.name} |
-              <strong> Purpose:</strong> {req.purpose}|
-              <strong> Requested:</strong> {req.createdAt}|
-              <strong> Deadline:</strong> {req.deadline}|
-              <strong> Status:</strong> {req.status}|
-              {req.status === 'Pending' && (
-                <>
-                  <button onClick={() => updateStatus(req._id, 'Approved')}>Approve</button>
-                  <button onClick={() => updateStatus(req._id, 'Rejected')}>Reject</button>
-                </>
-              )}
-            </li>
+            <RequestCard 
+              key={req._id}
+              request={req}
+              onApprove={()=> updateStatus(req.id, "Approved")}
+              onReject={() => updateStatus(req._id, 'Rejected')}
+            />
           ))}
         </ul>
       </div>
