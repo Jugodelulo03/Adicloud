@@ -33,7 +33,7 @@ p{
 }
 
 .rightpanel{
-    width: fit-content;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,10 +70,11 @@ p{
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    max-width: 64.61px;
     align-content: center;
     justify-content: center;
     padding: 5px;
+    width: auto;
+
 }
 
 .text{

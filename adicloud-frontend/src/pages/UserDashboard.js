@@ -73,7 +73,7 @@ function Main() {
           categoryFilter={categoryFilter}
           setCategoryFilter={setCategoryFilter}
         />
-        <div className='divider'></div>
+        <div className='divider1'></div>
         <div>
           <ul className='conteinerMain'>
             {assets.map((asset) => (

@@ -21,8 +21,12 @@ function RequestCard({ request, onApprove, onReject , onDownload }) {
         <div>
           <p className="nameAsset">{request.assetId?.name}</p>
           <p>{request.assetId?.files?.length} files</p>
-          <p>To: {request.userId?.name}</p>
-          <p>Purpose: {request.purpose}</p>
+          {!isUser && (
+            <>
+              <p>To: {request.userId?.name}</p>
+              <p>Purpose: {request.purpose}</p>
+            </>
+          )}
           <p>Requested: {new Date(request.createdAt).toLocaleDateString()}</p>
           <p>Deadline: {new Date(request.deadline).toLocaleDateString()}</p>
         </div>
