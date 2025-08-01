@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import './RequestCard.css';
+import ConfirmationPopup from './ConfirmationPopUp.js';
 
 function RequestCard({ request, onApprove, onReject , onDownload }) {
   const role = localStorage.getItem("role");
@@ -10,6 +11,23 @@ function RequestCard({ request, onApprove, onReject , onDownload }) {
   const isApproved = request.status === "Approved";
   const isPending = request.status === "Pending";
 
+  const [confirmAction, setConfirmAction] = useState(null);
+  const [confirmVisible, setConfirmVisible] = useState(false);
+
+  const handleConfirm = () => {
+    if (confirmAction === 'approve') {
+      onApprove(request._id);
+    } else if (confirmAction === 'reject') {
+      onReject(request._id);
+    }
+    setConfirmVisible(false);
+    setConfirmAction(null);
+  };
+
+  const handleCancel = () => {
+    setConfirmVisible(false);
+    setConfirmAction(null);
+  };
   return (
     <li className="request-card">
       <img
@@ -37,18 +55,36 @@ function RequestCard({ request, onApprove, onReject , onDownload }) {
           {isAdmin && isPending && (
             <div className="request-actions">
               <button
-                onClick={() => onApprove(request._id)}
+                onClick={() => {
+                  setConfirmAction('approve');
+                  setConfirmVisible(true);
+                }}
                 className="bottonRequest"
               >
                 Approve
               </button>
               <button
-                onClick={() => onReject(request._id)}
+                onClick={() => {
+                  setConfirmAction('reject');
+                  setConfirmVisible(true);
+                }}
                 className="bottonRequest"
               >
                 Reject
               </button>
             </div>
+          )}
+
+          {confirmVisible &&(
+             <ConfirmationPopup
+                message={
+                  confirmAction === 'approve'
+                    ? 'Are you sure you want to APPROVE this request?'
+                    : 'Are you sure you want to REJECT this request?'
+                }
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+              />
           )}
 
           {isUser && isApproved && (
