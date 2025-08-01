@@ -6,7 +6,7 @@
     text-transform: capitalize;
 }
 
-.body {
+.bodyl {
   display: flex;
   justify-content: space-between;
   gap: 40px;
