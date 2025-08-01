@@ -38,13 +38,8 @@ function LoginPage() {
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('userId', response.data.userId);
 
-      if (response.data.role === 'admin') {
-        navigate('/dashboard');
-      } else {
-        navigate('/galery');
-      }
-
       window.location.reload();
+      
     } catch (err) {
       setError('Invalid credentials. Please try again.');
       setLoading(false);
