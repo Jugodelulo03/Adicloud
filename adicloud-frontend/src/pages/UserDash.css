@@ -41,6 +41,11 @@
   margin-bottom: 20px;
 }
 
+.overflowCategories{
+  width: 100%;
+  overflow: hidden;
+}
+
 .fade-in-logo {
   width: 100%;
   object-fit: contain;

@@ -79,10 +79,13 @@ function Main() {
         <div className='divider1'></div>
         <div>
           <ul className='conteinerMain'>
+            <li className="add-pack-card" onClick={handleAddPack}>
+                <div className="add-pack-circle">+</div>
+                <p>Add a Pack</p>
+            </li>
+            
             {assets.map((asset) => (
-              <Link to={`/galery/${asset._id}`} className='nameAsset'>
                 <AssetCard key={asset._id} asset={asset} />
-              </Link>
             ))}
           </ul>
         </div>
