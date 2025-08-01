@@ -59,39 +59,62 @@ function UserRequestForm() {
 
   return (
     <div className='body'>
-      {/* Show all images */}
-      <div className='AssetsFilesView'>
-        {asset.files.map((url, idx) => (
-          <img key={idx} src={url} alt={`Asset ${idx}`} className='AssetPrev' />
-        ))}
-      </div>
-
-      <div className='RightPanel'>
-        <h2 className='TransformTitle'>{asset.name}</h2>
-        <div className='InfoAssets'>
-          <p><strong>Category:</strong> {asset.category}</p>
-          <p><strong>Number of files:</strong> {asset.files.length}</p>
+      <div className='bodyl'>
+        {/* Show all images */}
+        <div className='AssetsFilesView'>
+          {asset.files.map((url, idx) => (
+           <div
+              key={idx}
+              className="AssetWrapper"
+              onMouseMove={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                img.style.transformOrigin = `${x}% ${y}%`;
+              }}
+              onMouseLeave={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                img.style.transform = 'scale(1)';
+              }}
+              onMouseEnter={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                img.style.transform = 'scale(1.6)';
+              }}
+            >
+              <img src={url} alt={`Asset ${idx}`} className="AssetPrev" />
+            </div>
+          ))}
         </div>
+      
 
+        <div className='RightPanel'>
+          <h2 className='TransformTitle'>{asset.name}</h2>
+          <div className='InfoAssets'>
+            <p>{asset.category} category</p>
+            <p>{asset.files.length} files</p>
+          </div>
+          <h3 className='ToRquest'>To Request</h3>
+          <p className='before'>Before submit, please fill in all the information.</p>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-          <input
-            type="text"
-            placeholder="Purpose"
-            value={purpose}
-            onChange={(e) => setPurpose(e.target.value)}
-            required
-          />
-          <br />
-          <input
-            type="date"
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            required
-          />
-          <br />
-          <button type="submit">Submit Request</button>
-        </form>
+          <form onSubmit={handleSubmit}  className='styleForm'>
+            <input
+              type="text"
+              placeholder="Purpose*"
+              value={purpose}
+              onChange={(e) => setPurpose(e.target.value)}
+              required
+            />
+            <input
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              required
+            />
+            <p className='after'>All fields market with * are requeried.</p>
+            <button type="submit" className='botton'>Submit</button>
+          </form>
+        </div>
       </div>
       {message && <p>{message}</p>}
     </div>
