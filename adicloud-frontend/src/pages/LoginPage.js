@@ -4,17 +4,16 @@ import axios from 'axios';
 import './LoginPage.css';
 import { ReactComponent as LogoA } from './assets/logo_tradicional.svg';
 import { ReactComponent as LogoB } from './assets/adicouldSOLO.svg';
+import Logo from './assets/logo_tradicional.svg';
 
 function LoginPage() {
-  // Local state for email, password, and error messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Hook to navigate between pages
   const navigate = useNavigate();
 
-  // Redirigir si ya hay sesión iniciada
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
@@ -25,45 +24,50 @@ function LoginPage() {
     }
   }, [navigate]);
 
-  // Handle form submission
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      // Send login request to backend
       const response = await axios.post('https://adicloud.onrender.com/login', {
         email,
         password
       });
 
-      // Save token and role in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('userId', response.data.userId);
 
-      // Check user role and redirect accordingly
       if (response.data.role === 'admin') {
         navigate('/dashboard');
       } else {
         navigate('/galery');
       }
+
       window.location.reload();
     } catch (err) {
-      // Show error message if login fails
       setError('Invalid credentials. Please try again.');
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="menu1">
+        <img src={Logo} alt="Logo" className="fade-in-logo" />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <LogoA className='logo'/> 
+      <LogoA className='logo' /> 
       <div className="container">
         <h2 className='titleLI'>Welcome back to 
           <LogoB className='adicloud'/>
         </h2>
         <form onSubmit={handleLogin} className='form'>
           <div className='space'>
-            {/* Email input */}
             <input
               type="email"
               placeholder="Email"
@@ -71,9 +75,7 @@ function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               className='textbox'
-              />
-
-            {/* Password input */}
+            />
             <input
               type="password"
               placeholder="Password"
@@ -83,11 +85,8 @@ function LoginPage() {
               className='textbox'
             />
           </div>
-          {/* Submit button */}
           <button type="submit" className='button'>Log in</button>
         </form>
-
-        {/* Display error message */}
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
     </div>

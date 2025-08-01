@@ -3,7 +3,7 @@ import LogoC from '../assets/adicould.svg';
 import IconProfile from '../assets/icon_profile.svg';
 import '../dropdownmenuA.css';
 
-const Header = ({ statusFilter, setStatusFilter }) => {
+const Header = ({ statusFilter, setStatusFilter, role }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState('');
     const dropdownRef = useRef(null);
@@ -44,20 +44,40 @@ const Header = ({ statusFilter, setStatusFilter }) => {
     return(
         <header className="header">
             <div className="headerbox">
-                    <img src={LogoC} alt="Logo" className="logoC" />
-                <nav className="menu1">
-                    <div className="requestmenu">
-                        <a href="/dashboard" className= "dropbtn">Requests</a>
-                        <div className="dpdcont">
-                            <a href="/dashboard">All</a>
-                            <a href="/dashboard/Pending" >Pending</a>
-                            <a href="/dashboard/Approved" >Approved</a>
-                            <a href="/dashboard/Rejected">Rejected</a>
-                        </div>
-                    </div>
-                    <a href="/" className= "dropbtn gallery"> Gallery</a>
-                </nav>
+                    <a href="/">
+                        <img src={LogoC} alt="Logo" className="logoC" />
+                    </a>
+                    {role === 'admin' && (   //admin 
+                        <nav className="menu1">
+                            <div className="requestmenu">
+                                <a href="/dashboard" className= "dropbtn">Requests</a>
+                                <div className="dpdcont">
+                                    <a href="/dashboard">All</a>
+                                    <a href="/dashboard/Pending" >Pending</a>
+                                    <a href="/dashboard/Approved" >Approved</a>
+                                    <a href="/dashboard/Rejected">Rejected</a>
+                                </div>
+                            </div>
+                            <a href="/" className= "dropbtn gallery"> Gallery</a>
+                        </nav>
+                    )}
 
+                    {role === 'user' && (   // user
+                        <nav className="menu1"> 
+
+                            <a href="/" className= "dropbtn gallery"> Gallery</a>
+
+                            <div className="requestmenu">
+                                <a href="/myrequests" className= "dropbtn">My Requests</a>
+                                <div className="dpdcont">
+                                    <a href="/myrequests">All</a>
+                                    <a href="/" >Pending</a>
+                                    <a href="/" >Approved</a>
+                                    <a href="/">Rejected</a>
+                                </div>
+                            </div>
+                        </nav>
+                    )}
                 <div className="user-info" ref={dropdownRef}>
                     <div className="profile-menu" onClick={() => setShowDropdown(!showDropdown)}>
                         <span className='maxW'>Hi, {userName || '...'}</span>
@@ -66,7 +86,7 @@ const Header = ({ statusFilter, setStatusFilter }) => {
 
                     {showDropdown && (
                     <div className="profile-dropdown">
-                        <a href="/requests">Requests</a>
+                        <a href="/dashboard">Requests</a>
                         <a href="/">Log Out</a>
                     </div>
                     )}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './assetsview.css';
+import Logo from './assets/logo_tradicional.svg';
 
 function UserRequestForm() {
   const { idAsset } = useParams();
@@ -52,7 +53,9 @@ function UserRequestForm() {
     }
   };
 
-  if (!asset) return <p>Loading asset...</p>;
+  if (!asset) return<div className='menu1'>
+    <img src={Logo} alt="Logo" className="fade-in-logo" />
+  </div>
 
   return (
     <div className='body'>

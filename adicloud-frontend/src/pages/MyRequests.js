@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
+import { useParams } from 'react-router-dom';
 
 
 function MyRequests() {
+  const { status } = useParams();
+  const [statusFilter, setStatusFilter] = useState(status || '');
   const [requests, setRequests] = useState([]);
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId'); // Ensure userId is stored at login
@@ -29,6 +32,7 @@ function MyRequests() {
 
   return (
     <div>
+      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
       <h2>My Requests</h2>
 
       {/* Pending Requests */}
