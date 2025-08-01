@@ -38,10 +38,9 @@ function App() {
 
         {/* User requests page, protected */}
         <Route
-          path="/myrequests"
+          path="/myrequests/:status?"
           element={token && role === 'user' ? <MyRequests /> : <Navigate to="/" />}
         />
-
         {/* Catch-all route: redirects any unknown path to login <Route path="*" element={<Navigate to="/" />} /> */}
         
       </Routes>

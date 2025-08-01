@@ -29,7 +29,16 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            .then(res => res.json())
+            .then(res => {
+            if (res.status === 403) {
+                localStorage.removeItem('userId');
+                localStorage.removeItem('token');
+                localStorage.removeItem('role');
+                window.location.href = '/';
+                return;
+            }
+            return res.json();
+            })
             .then(data => {
                 if (data.user && data.user.name) {
                     setUserName(data.user.name);

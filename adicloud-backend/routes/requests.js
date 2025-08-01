@@ -17,6 +17,17 @@ router.post('/requests', async (req, res) => {
   }
 });
 
+// GET /requests/user/:userId/:status - get requests by user and status
+router.get('/requests/user/:userId/:status', async (req, res) => {
+  try {
+    const { userId, status } = req.params;
+    const requests = await Request.find({ userId, status }).populate('assetId');
+    res.json(requests);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
+
 // GET /requests/user/:userId - get all requests made by a specific user
 router.get('/requests/user/:userId', async (req, res) => {
   try {
@@ -28,16 +39,6 @@ router.get('/requests/user/:userId', async (req, res) => {
 });
 
 
-// GET /requests/user/:userId/:status - get requests by user and status
-router.get('/requests/user/:userId/:status', async (req, res) => {
-  try {
-    const { userId, status } = req.params;
-    const requests = await Request.find({ userId, status }).populate('assetId');
-    res.json(requests);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
-  }
-});
 
 //ADMIN ROUTES -----------------
 // GET /requests - admin: get all requests

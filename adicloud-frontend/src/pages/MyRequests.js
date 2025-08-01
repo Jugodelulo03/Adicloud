@@ -3,20 +3,18 @@ import axios from 'axios';
 import Header from './components/Header';
 import { useParams } from 'react-router-dom';
 
-
 function MyRequests() {
   const { status } = useParams();
-  const [statusFilter, setStatusFilter] = useState(status || '');
   const [requests, setRequests] = useState([]);
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId'); // Ensure userId is stored at login
+  const userId = localStorage.getItem('userId');
 
-  // Fetch all user requests
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await axios.get(`https://adicloud.onrender.com/requests/user/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
+        let url = `https://adicloud.onrender.com/requests/user/${userId}/${status}`;
+        const res = await axios.get(url, {
+          headers: { authorization: `Bearer ${token}` }
         });
         setRequests(res.data);
       } catch (err) {
@@ -24,41 +22,15 @@ function MyRequests() {
       }
     };
 
-    fetchRequests();
-  }, [token, userId]);
-
-  // Helper to group requests by status
-  const groupByStatus = (status) => requests.filter(req => req.status === status);
+    if (userId && status) fetchRequests();
+  }, [token, userId, status]);
 
   return (
     <div>
-      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
-      <h2>My Requests</h2>
-
-      {/* Pending Requests */}
-      <h3>Pending</h3>
+      <Header statusFilter={status} setStatusFilter={() => {}} role="user" />
+      <h2>My Requests ({status})</h2>
       <ul>
-        {groupByStatus('Pending').map(req => (
-          <li key={req._id}>
-            {req.assetId?.name} - {req.purpose} (Deadline: {req.deadline})
-          </li>
-        ))}
-      </ul>
-
-      {/* Approved Requests */}
-      <h3>Approved</h3>
-      <ul>
-        {groupByStatus('Approved').map(req => (
-          <li key={req._id}>
-            {req.assetId?.name} - {req.purpose} (Deadline: {req.deadline})
-          </li>
-        ))}
-      </ul>
-
-      {/* Rejected Requests */}
-      <h3>Rejected</h3>
-      <ul>
-        {groupByStatus('Rejected').map(req => (
+        {requests.map(req => (
           <li key={req._id}>
             {req.assetId?.name} - {req.purpose} (Deadline: {req.deadline})
           </li>
@@ -69,3 +41,4 @@ function MyRequests() {
 }
 
 export default MyRequests;
+
