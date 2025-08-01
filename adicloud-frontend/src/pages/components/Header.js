@@ -2,11 +2,33 @@ import React, { useState, useEffect, useRef } from 'react';
 import LogoC from '../assets/adicould.svg';
 import IconProfile from '../assets/icon_profile.svg';
 import '../dropdownmenuA.css';
+import ConfirmationPopup from './ConfirmationPopUp.js';
 
 const Header = ({ statusFilter, setStatusFilter, role }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState('');
     const dropdownRef = useRef(null);
+
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const handleLogoutClick = () => {
+        setShowLogoutConfirm(true); // mostrar pop-up
+        setShowDropdown(false); // cerrar el dropdown
+    };
+
+    const confirmLogout = () => {
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/';
+    };
+
+    const cancelLogout = () => {
+        setShowLogoutConfirm(false);
+    };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -96,8 +118,15 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                     {showDropdown && (
                     <div className="profile-dropdown">
                         <a href="/dashboard">Requests</a>
-                        <a href="/">Log Out</a>
+                        <button onClick={handleLogoutClick} className="logout-btn">Log Out</button>
                     </div>
+                    )}
+                    {showLogoutConfirm && (
+                        <ConfirmationPopup
+                            message="Are you sure you wanna log out?"
+                            onConfirm={confirmLogout}
+                            onCancel={cancelLogout}
+                        />
                     )}
                 </div>
             </div>
