@@ -39,6 +39,7 @@ p{
     align-items: center;
     gap: 11px;
     height: auto;
+    padding: 5px;
 }
 
 .imgRequest{
@@ -53,7 +54,7 @@ p{
 }
 
 .status-text.Approved{
-    color: #007BC6;
+    color: #408267;
 }
 
 .status-text.Rejected{
@@ -61,7 +62,7 @@ p{
 }
 
 .status-text.Pending{
-    color: black;
+    color: #007BC6;
 
 }
 
@@ -75,26 +76,18 @@ p{
     padding: 5px;
 }
 
-.imgRequesth{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-li:hover .imgRequesth{
-    opacity: 1;
-}
-
-.request-card:hover{
-    border: 2px solid black;
-}
-
 .text{
-    border-right: 2px solid #edeff1;
-    padding-right: 5px;
+    background: linear-gradient(to right, #edeff1 2px, transparent 2px);
+    background-repeat: no-repeat;
+    background-size: 2px 70%;
+    background-position: right center;
+    padding-right: 10px;
+}
+
+.divider{
+    height: auto;
+    width: 2px;
+    background-color: #edeff1;
+    margin: 10px auto;
+
 }

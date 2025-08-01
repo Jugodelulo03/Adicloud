@@ -1,28 +1,32 @@
 .body{
-    margin-left: 10.4%;
-    margin-right: 10.4%;
+  margin-left: 10.4%;
+  margin-right: 10.4%;
 }
+
 .TransformTitle{
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .bodyl {
   display: flex;
   justify-content: space-between;
-  gap: 40px;
-  min-height: 100vh;
 }
 
 .AssetsFilesView {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2px;
   flex: 1;
+  overflow-y: auto;
 }
 
 .AssetPrev {
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  will-change: transform;
+  transform-origin: center center;
 }
 
 .RightPanel {
@@ -43,10 +47,43 @@
 
 .RightPanel form input {
   width: 100%;
-  padding: 10px 14px;
+  padding-left: 13px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  font-size: 15px;
+  height: 40px;
+  background-color: #edeff1;
+  border: none;
+  color: #767677;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-family: 'Assistant', Helvetica, Arial, sans-serif;
+}
+
+.AssetWrapper{
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  width: 100%;
+  min-width: 300px;
+}
+
+.styleForm{
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+.ToRquest{
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.before, .after{
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  text-transform: none;
+}
+
+.after{
+  color: #767677;
 }
 
 .fade-in-logo {
