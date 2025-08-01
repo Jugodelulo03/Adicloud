@@ -83,3 +83,11 @@ p{
     background-position: right center;
     padding-right: 10px;
 }
+
+.divider{
+    height: auto;
+    width: 2px;
+    background-color: #edeff1;
+    margin: 10px auto;
+
+}

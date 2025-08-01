@@ -11,7 +11,7 @@ function RequestCard({request, onApprove, onReject}){
                 className="imgRequest"
             />
             <div className="infoRequest">
-                <div className="text">
+                <div className="">
                     <p className="nameAsset">{request.assetId?.name} </p>
                     <p>{request.assetId?.files?.length} files</p>
                     <p>To:{request.userId?.name}</p>
@@ -19,10 +19,9 @@ function RequestCard({request, onApprove, onReject}){
                     <p>Requested: {new Date(request.createdAt).toLocaleDateString()}</p>
                     <p>Deadline: {new Date(request.deadline).toLocaleDateString()}</p>
                 </div>
-
+                <div className="divider"></div>
                 <div className="rightpanel">
                     <p className={`status-text ${request.status}`}>{request.status}</p>
-
                     {request.status === 'Pending' && (
                         <div className="request-actions">
                             <button onClick={() => onApprove(request._id)} className="bottonRequest">Approve</button>
