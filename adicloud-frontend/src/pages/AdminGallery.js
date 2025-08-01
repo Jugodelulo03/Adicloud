@@ -17,6 +17,10 @@ function Main() {
   const [categoryFilter, setCategoryFilter] = useState('');
   const token = localStorage.getItem('token');
 
+  // provitional function to handle adding a pack
+  const handleAddPack = () => {
+  console.log('Add Pack clicked');
+};
   // Fetch categories from backend
   useEffect(() => {
     const fetchCategories = async () => {
@@ -64,7 +68,7 @@ function Main() {
   return (
 
     <div>  
-      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
+      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"admin"}/>
       <div className='body'>
         <h2>ASSETS</h2>
         <h3>CATEGORIES</h3>

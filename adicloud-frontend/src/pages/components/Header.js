@@ -89,7 +89,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                                     <a href="/dashboard/Rejected">Rejected</a>
                                 </div>
                             </div>
-                            <a href="/" className= "dropbtn gallery"> Gallery</a>
+                            <a href="/admingallery" className= "dropbtn gallery"> Gallery</a>
                         </nav>
                     )}
 
@@ -115,9 +115,16 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                         <img src={IconProfile} alt="Usuario" className="user-icon" />
                     </div>
 
-                    {showDropdown && (
+                    {showDropdown && role === "admin" &&(
                     <div className="profile-dropdown">
                         <a href="/dashboard">Requests</a>
+                        <button onClick={handleLogoutClick} className="logout-btn">Log Out</button>
+                    </div>
+                    )}
+
+                    {showDropdown && role === "user" &&(
+                    <div className="profile-dropdown">
+                        <a href="/myrequests">My Requests</a>
                         <button onClick={handleLogoutClick} className="logout-btn">Log Out</button>
                     </div>
                     )}
