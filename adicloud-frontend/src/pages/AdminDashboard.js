@@ -65,7 +65,7 @@ function AdminDashboard() {
               <RequestCard 
                 key={req._id}
                 request={req}
-                onApprove={()=> updateStatus(req.id, "Approved")}
+                onApprove={()=> updateStatus(req._id, "Approved")}
                 onReject={() => updateStatus(req._id, 'Rejected')}
               />
             ))}
