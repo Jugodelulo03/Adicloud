@@ -28,7 +28,7 @@ function MyRequests() {
   return (
     <div>
       <Header statusFilter={status} setStatusFilter={() => {}} role="user" />
-      <h2>My Requests ({status})</h2>
+      <h2>{status} Requests</h2>
       <ul>
         {requests.map(req => (
           <li key={req._id}>

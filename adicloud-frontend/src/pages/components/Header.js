@@ -80,9 +80,9 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                                 <a href="/myrequests" className= "dropbtn">My Requests</a>
                                 <div className="dpdcont">
                                     <a href="/myrequests">All</a>
-                                    <a href="/" >Pending</a>
-                                    <a href="/" >Approved</a>
-                                    <a href="/">Rejected</a>
+                                    <a href="/myrequests/Pending" >Pending</a>
+                                    <a href="/myrequests/Approved" >Approved</a>
+                                    <a href="/myrequests/Rejected">Rejected</a>
                                 </div>
                             </div>
                         </nav>
