@@ -1,11 +1,26 @@
-import React from "react";
-/*import './Components.css';*/
+import React from 'react';
+import './CategoryCard.css';
 
-function CategoryCard({ category, onSelect }) {
+function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
   return (
-    <div className="category-card" onClick={() => onSelect(category.name)}>
-      <img src={category.imageUrl/**/} alt={category.name} className="category-image" />
-      <p>{category.name}</p>
+    <div className="CategoryCard">
+      <button
+        className={categoryFilter === '' ? 'category-button active' : 'category-button'}
+        onClick={() => setCategoryFilter('')}
+      >
+        All Categories
+      </button>
+
+      {categories.map((cat, idx) => (
+        <button
+          key={idx}
+          className={categoryFilter === cat ? 'category-button active' : 'category-button'}
+          onClick={() => setCategoryFilter(cat)}
+        >
+          <img src={cat.image} alt={cat.name} className="category-image" />
+          {cat}
+        </button>
+      ))}
     </div>
   );
 }

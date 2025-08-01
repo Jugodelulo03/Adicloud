@@ -1,21 +1,44 @@
 .body{
-    margin-left: 10.4%;
-    margin-right: 10.4%;
+  margin-left: 10.4%;
+  margin-right: 10.4%;
 }
 
 .conteinerMain{
-    padding: 0;
-    display: grid;
-    gap: 11px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    overflow-y: auto;
-    overflow-x: hidden;
+  padding: 0;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .nameAsset{
-    text-decoration: none;
-    color: black;
-    font-weight: inherit;
+  text-decoration: none;
+  color: black;
+  font-weight: inherit;
+}
+
+.bg{
+  width: 100vw; /* 100% del ancho del viewport */
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 66px;
+  background-image: url('C:\Users\Moon\Documents\GitHub\Adicloud\adicloud-frontend\src\pages\assets\outdoor_fw24_terrex_adventure_wardrobe_launch_plp_iwp_bg_d_771e98f121.avif');
+  background-size: cover;
+  background-position: center;
+  height: 207px;
+  overflow: hidden;
+}
+
+.divider{
+  height: 1px;
+  width: 100%;
+  background-color: #edeff1;
+  margin-top: 39px; 
+  margin-bottom: 20px;
 }
 
 .fade-in-logo {
@@ -34,3 +57,4 @@
     opacity: 1;
   }
 }
+

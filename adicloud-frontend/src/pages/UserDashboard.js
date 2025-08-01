@@ -67,51 +67,22 @@ function Main() {
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
       <div className='body'>
         <h2>User Dashboard</h2>
-        
-        {/* Category Filter */}
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => setCategoryFilter('')}
-            style={{
-              backgroundColor: categoryFilter === '' ? '#007bff' : '#e0e0e0',
-              color: categoryFilter === '' ? '#fff' : '#000',
-              padding: '6px 12px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-            >
-            All Categories
-          </button>
-
-          {categories.map((cat, idx) => (
-            <button
-            key={idx}
-            onClick={() => setCategoryFilter(cat)}
-            style={{
-              backgroundColor: categoryFilter === cat ? '#007bff' : '#e0e0e0',
-              color: categoryFilter === cat ? '#fff' : '#000',
-              padding: '6px 12px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className='bg'></div>
+        <CategoryCard
+          categories={categories}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+        />
+        <div className='divider'></div>
+        <div>
+          <ul className='conteinerMain'>
+            {assets.map((asset) => (
+              <Link to={`/galery/${asset._id}`} className='nameAsset'>
+                <AssetCard key={asset._id} asset={asset} />
+              </Link>
+            ))}
+          </ul>
         </div>
-
-        {/* Asset List */}
-          <div>
-            <ul className='conteinerMain'>
-              {assets.map((asset) => (
-                <Link to={`/galery/${asset._id}`} className='nameAsset'>
-                  <AssetCard key={asset._id} asset={asset} />
-                </Link>
-              ))}
-            </ul>
-          </div>
       </div>
     </div>
   );

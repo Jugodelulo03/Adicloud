@@ -1,0 +1,32 @@
+.category-button{
+    width: 212px;
+    height: 254px;
+    font-family: 'Assistant', helvetica, arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1.4px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    gap: 5px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+
+}
+
+.category-button:hover{
+    background-color: #000000;
+    color: #ffffff;
+    transform: translateY(-26px);
+}
+
+.CategoryCard{
+    display: flex;
+    max-width: 1517px;
+    gap: 5px;
+    height: 254px;
+    position: relative;
+    overflow: hidden;
+
+}
