@@ -5,6 +5,10 @@ import './assetsview.css';
 import Logo from './assets/logo_tradicional.svg';
 import Header from './components/Header';
 
+const getFileName = (url) => {
+  return url.split('/').pop();
+};
+
 function UserRequestForm() {
   const { idAsset } = useParams();
   const token = localStorage.getItem('token');
@@ -17,6 +21,8 @@ function UserRequestForm() {
   const [deadline, setDeadline] = useState('');
   const [message, setMessage] = useState('');
   const [statusFilter, setStatusFilter] = useState(status || '');
+
+
 
   // Fetch asset details
   useEffect(() => {
@@ -98,6 +104,16 @@ function UserRequestForm() {
             <div className='InfoAssets'>
               <p>{asset.category} category</p>
               <p>{asset.files.length} files</p>
+              <div>
+                <ul className="FilesList">
+                  {asset.files.map((url, idx) => (
+                    <li key={idx} className="FileItem">
+                      <img src={url} alt={`thumb-${idx}`} className="FileThumb" />
+                      <p>{getFileName(url)}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <h3 className='ToRquest'>To Request</h3>
             <p className='before'>Before submit, please fill in all the information.</p>
@@ -109,15 +125,17 @@ function UserRequestForm() {
                 value={purpose}
                 onChange={(e) => setPurpose(e.target.value)}
                 required
+                className='textbox'
               />
               <input
                 type="date"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
                 required
+                className='datebox'
               />
               <p className='after'>All fields market with * are requeried.</p>
-              <button type="submit" className='botton'>Submit</button>
+              <button type="submit" className='botton1'>Submit</button>
             </form>
           </div>
         </div>

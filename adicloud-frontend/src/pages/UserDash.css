@@ -19,7 +19,7 @@
 }
 
 .bg{
-  width: 100vw; /* 100% del ancho del viewport */
+  width: 100vw;
   position: absolute;
   left: 50%;
   right: 50%;
