@@ -18,7 +18,7 @@ router.post('/requests', async (req, res) => {
 });
 
 // GET /requests/user/:userId/:status - get requests by user and status
-router.get('/requests/user/:userId/:status', async (req, res) => {
+router.get('/requests/:userId/:status', async (req, res) => {
   try {
     const { userId, status } = req.params;
     const requests = await Request.find({ userId, status }).populate('assetId');
