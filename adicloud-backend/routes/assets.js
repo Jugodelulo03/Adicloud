@@ -13,6 +13,7 @@ const upload = multer({ dest: 'uploads/' });
 
 // POST /assets/upload - upload files to Cloudinary and save in MongoDB
 router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, res) => {
+  
   try {
     const { name, category } = req.body;
 

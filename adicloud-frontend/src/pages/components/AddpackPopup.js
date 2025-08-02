@@ -3,85 +3,115 @@ import axios from 'axios';
 import './AddpackPopup.css'
 
 function AddpackPopup({ categories, token, onClose }) {
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [file, setFile] = useState(null);
-  const [customCategory, setCustomCategory] = useState('');
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+    const [files, setFiles] = useState([]);
+    const [customCategory, setCustomCategory] = useState('');
 
-  const handleFileChange = (e) => setFile(e.target.files[0]);
+    const handleFileChange = (e) => {
+        const selectedFiles = Array.from(e.target.files);
+        setFiles(selectedFiles);
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const finalCategory = category === 'Otro' ? customCategory : category;
+        const finalCategory = category === 'Otro' ? customCategory : category;
 
-    if (!name || !finalCategory || !file) {
-        alert("Please, fill in all the fields");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('category', finalCategory);
-    formData.append('files', file); // solo un archivo o usa bucle si son varios
+        if (!name || !finalCategory || !files) {
+            alert("Please, fill in all the fields");
+            return;
+        }
 
         try {
-                const response = await axios.post('http://localhost:3001/assets/upload', formData, {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('category', finalCategory);
+
+            files.forEach((file) => {
+                formData.append('files', file);
+            });
+
+            const response = await axios.post('https://adicloud.onrender.com/assets/upload', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
-            alert('Uploaded Pack SUccessfully');
+            alert('Uploaded Pack Successfully');
             console.log(response.data);
-            onClose(); // cierra el popup
+            onClose();
+
         } catch (error) {
-            console.error(error);
+            console.error('Upload error:', error.response ? error.response.data : error.message);
             alert('ERROR upload pack');
         }
-    };
+    }
 
-  return (
-    <div className="popup-overlay">
-      <div className="popup-card">
-        <button className="close-btn" onClick={onClose}>✕</button>
-        <h2>Add a New Asset Pack</h2>
+    return (
+        <div className="popup-overlay">
+            <div className="popup-card">
+                <button className="close-btn" onClick={onClose}>✕</button>
+                <h2>Add a New Asset Pack</h2>
 
-        <label className="upload-label">
-          <input type="file" onChange={handleFileChange} hidden />
-          <button className="upload-button">Upload a file</button>
-        </label>
+                {files.length > 0 && (
+                    <div className="preview-container">
+                        {files.map((file, index) => (
+                        <div key={index} className="file-preview">
+                            {file.type.startsWith('image/') && (
+                            <img
+                                src={URL.createObjectURL(file)}
+                                alt={file.name}
+                                className="preview-image"
+                            />
+                            )}
+                            <p className='nameFiless'>{file.name}</p>
+                        </div>
+                        ))}
+                    </div>
+                )}
 
-        <input
-          type="text"
-          placeholder="Name*"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+                <div className='contenttt'>
+                    <label className="upload-button" htmlFor="fileInput">
+                        Upload a file
+                    </label>
+                    <input id="fileInput" type="file" onChange={handleFileChange} multiple hidden />
 
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">Category*</option>
-          {categories.map((cat, idx) => (
-            <option key={idx} value={cat}>{cat}</option>
-          ))}
-          <option value="Otro">Otro</option>
-        </select>
+                    <div className='textFiels'>
+                        <input
+                            type="text"
+                            placeholder="Name*"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            className='textboxs'
+                        />
 
-        {category === 'Otro' && (
-          <input
-            type="text"
-            placeholder="Enter category"
-            value={customCategory}
-            onChange={(e) => setCustomCategory(e.target.value)}
-          />
-        )}
+                        <select className='textboxs' value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Category*</option>
+                        {categories.map((cat, idx) => (
+                            <option key={idx} value={cat}>{cat}</option>
+                        ))}
+                        <option value="Other">Other</option>
+                        </select>
+                    </div>
 
-        <button className="save-button" onClick={handleSubmit}>Save</button>
-      </div>
-    </div>
-  );
+                    {category === 'Otro' && (
+                    <input
+                        type="text"
+                        placeholder="Enter category"
+                        value={customCategory}
+                        onChange={(e) => setCustomCategory(e.target.value)}
+                    />
+                    )}
+
+                    <button className="save-button" onClick={handleSubmit}>Save</button>
+                </div>
+
+            </div>
+        </div>
+    );
 }
 
 export default AddpackPopup;
