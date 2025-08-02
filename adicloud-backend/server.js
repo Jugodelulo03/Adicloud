@@ -21,9 +21,12 @@ app.use(cors({
 }));
 */
 
+// configure CORS: allow all origins (for development purposes)
 app.use(cors({
   origin: '*'
 }));
+
+
 // connect to MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
