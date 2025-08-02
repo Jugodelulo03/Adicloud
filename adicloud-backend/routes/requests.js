@@ -1,6 +1,8 @@
 const express = require('express');
 const Request = require('../models/Request');
 const { requireAdmin } = require('../middleware/authMiddleware');
+const sendEmail = require('../utils/mailer');
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -11,6 +13,18 @@ router.post('/requests', async (req, res) => {
     const { userId, assetId, purpose, deadline } = req.body;
     const newRequest = new Request({ userId, assetId, purpose, deadline });
     await newRequest.save();
+
+    const user = await User.findById(userId);
+    const admins = await User.find({ role: 'admin' }).select('email');
+    const adminEmails = admins.map(admin => admin.email);
+
+    // EMAIL NOTIFICATION
+    await sendEmail(
+      adminEmails,
+      'New Asset Request Submitted',
+      `User ${user.email} has submitted a new request for asset ${assetId}.\nPurpose: ${purpose}\nDeadline: ${deadline}`
+    );
+
     res.json({ message: 'Request created', request: newRequest });
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
@@ -75,9 +89,15 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
       req.params.id, 
       { status },
       { new: true }
-    );
+    ).populate('userId assetId');
 
     if (!updated) return res.status(404).json({ error: 'Request not found' });
+
+    await sendEmail(
+      updated.userId.email,
+      `Your request for ${updated.assetId.name} was ${status}`,
+      `Hi ${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.`
+    );
 
     res.json({ message: 'Request status updated', request: updated });
   } catch (err) {
