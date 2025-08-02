@@ -76,7 +76,12 @@ function AddpackPopup({ categories, token, onClose }) {
                     <label className="upload-button" htmlFor="fileInput">
                         Upload a file
                     </label>
-                    <input id="fileInput" type="file" onChange={handleFileChange} multiple hidden />
+                    <input 
+                        id="fileInput" 
+                        type="file" 
+                        onChange={handleFileChange} 
+                        multiple hidden 
+                    />
 
                     <div className='textFiels'>
                         <input

@@ -7,9 +7,15 @@ const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
 // Multer: handles incoming file uploads by temporarily storing them in the 'uploads/' folder
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage  });
 
 // POST /assets/upload - upload files to Cloudinary and save in MongoDB
 router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, res) => {
@@ -28,7 +34,10 @@ router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, r
     // Upload each file to Cloudinary in its folder, then delete temp file
     const uploadResults = await Promise.all(
       req.files.map(async (file) => {
-        const result = await cloudinary.uploader.upload(file.path, { folder: folderPath });
+        const result = await cloudinary.uploader.upload(file.path, { 
+          folder: folderPath,
+          resource_type: 'auto'
+        });
         fs.unlinkSync(file.path); // delete temp file after upload
         return result;
       })
