@@ -7,6 +7,8 @@ import './UserDash.css';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Logo from './assets/logo_tradicional.svg';
+import './AdminGallery.css'
+import AddpackPopup from './components/AddpackPopup';
 
 
 function Main() {
@@ -15,12 +17,27 @@ function Main() {
   const [categories, setCategories] = useState([]);
   const [statusFilter, setStatusFilter] = useState(status || '');
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const token = localStorage.getItem('token');
 
-  // provitional function to handle adding a pack
-  const handleAddPack = () => {
-  console.log('Add Pack clicked');
-};
+    // GET assests
+    const fetchAssets = async () => {
+        try {
+            let url = 'https://adicloud.onrender.com/assets';
+            if (categoryFilter) {
+                url += `?category=${categoryFilter}`;
+            }
+
+            const res = await axios.get(url, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            setAssets(res.data);
+        } catch (err) {
+        console.error('Error fetching assets:', err);
+        }
+    };
+
   // Fetch categories from backend
   useEffect(() => {
     const fetchCategories = async () => {
@@ -65,6 +82,7 @@ function Main() {
     </div>
 );
 
+
   return (
 
     <div>  
@@ -83,11 +101,20 @@ function Main() {
         <div className='divider1'></div>
         <div>
           <ul className='conteinerMain'>
-            <li className="add-pack-card" onClick={handleAddPack}>
+            <li className="add-pack-card" onClick={() => setShowPopup(true)}>
                 <div className="add-pack-circle">+</div>
                 <p>Add a Pack</p>
             </li>
-            
+            {showPopup && (
+                <AddpackPopup
+                    categories={categories}
+                    token={token}
+                    onClose={() => {
+                        setShowPopup(false);
+                        fetchAssets();
+                    }}
+                />
+            )}
             {assets.map((asset) => (
                 <AssetCard key={asset._id} asset={asset} />
             ))}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './AddpackPopup.css'
 
-function AddpackPopup({ categories, onSave, onClose }) {
+function AddpackPopup({ categories, token, onClose }) {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [file, setFile] = useState(null);
@@ -9,11 +10,37 @@ function AddpackPopup({ categories, onSave, onClose }) {
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const finalCategory = category === 'Otro' ? customCategory : category;
-    onSave({ name, category: finalCategory, file });
-    onClose();
-  };
+
+    if (!name || !finalCategory || !file) {
+        alert("Please, fill in all the fields");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('category', finalCategory);
+    formData.append('files', file); // solo un archivo o usa bucle si son varios
+
+        try {
+                const response = await axios.post('http://localhost:3001/assets/upload', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            alert('Uploaded Pack SUccessfully');
+            console.log(response.data);
+            onClose(); // cierra el popup
+        } catch (error) {
+            console.error(error);
+            alert('ERROR upload pack');
+        }
+    };
 
   return (
     <div className="popup-overlay">

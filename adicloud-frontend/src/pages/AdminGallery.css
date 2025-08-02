@@ -1,0 +1,32 @@
+.add-pack-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  list-style: none;
+  margin: 10px;
+  transition: transform 0.2s ease;
+}
+
+.add-pack-card:hover {
+  transform: scale(1.05);
+}
+
+.add-pack-circle {
+  width: 100px;
+  height: 100px;
+  border: 6px solid black;
+  border-radius: 50%;
+  font-size: 50px;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-pack-card p {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
