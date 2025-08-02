@@ -8,6 +8,9 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   margin-right: 5px;
+  margin-left: 5px;
+  justify-content: end;
+
 }
 
 .logoC {
@@ -151,4 +154,24 @@
 
 .logout-btn:hover{
   text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .dropbtn{
+    padding: 6px;
+  }
+
+  .logoC {
+  width: 120px;
+}
+
+  .user-info {
+  gap: 18px;
+  font-size: 16px;
+  font-weight: 400;
+  width: auto;
+  justify-content: right;
+  letter-spacing: 1px;
+}
+
 }
