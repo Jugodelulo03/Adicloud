@@ -28,11 +28,39 @@
     height: 254px;
     position: relative;
     overflow: hidden;
-
 }
 
 .category-button.active{
     background-color: #000000;
     color: #ffffff;
     transform: translateY(-26px);
+}
+
+@media (max-width: 700px) {
+
+    .CategoryCard{
+    height: 160px;
+    }
+
+    .category-button{
+    width: 212px;
+    height: 140px;
+    font-size: 14px;
+    gap: 5px;
+}
+  .dropbtn{
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .logoC {
+    width: 120px;
+  }
+
+  .user-info {
+
+    font-size: 12px;
+    justify-content: right;
+    letter-spacing: 1px;
+  }
 }
