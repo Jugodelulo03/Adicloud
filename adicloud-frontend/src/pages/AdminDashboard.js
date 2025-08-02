@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // Import axios for making HTTP requests
 import RequestCard from './components/RequestCard';
 import Header from './components/Header';
+import Footer from './components/footer';
 import './Admindash.css';
 import { useParams } from 'react-router-dom';
 
@@ -81,6 +82,7 @@ function AdminDashboard() {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

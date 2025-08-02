@@ -68,3 +68,22 @@
 .popup-actions button:hover::after {
     border: 2px solid #2f2f2f;
 }
+
+
+@media (max-width: 700px) {
+
+  .popup-box {
+  width: 300px;
+  height: 200px;
+  }
+
+  .popup-actions button {
+    width: 100px;
+  }
+
+  .ContenidoPopUp{
+  gap: 20px;
+
+}
+
+}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import CategoryCard from './components/CategoryCard';
 import AssetCard from './components/AssetCard';
+import Footer from './components/footer';
 import './UserDash.css';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -91,8 +92,9 @@ function Main() {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
+    
   );
 }
-
 export default Main;

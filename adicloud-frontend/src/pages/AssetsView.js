@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './assetsview.css';
 import Logo from './assets/logo_tradicional.svg';
 import Header from './components/Header';
+import Footer from './components/footer';
 
 const getFileName = (url) => {
   return url.split('/').pop();
@@ -145,6 +146,7 @@ function UserRequestForm() {
         </div>
         {message && <p>{message}</p>}
       </div>
+      <Footer />
     </div>
   );
 }

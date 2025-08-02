@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RequestCard from './components/RequestCard';
 import Header from './components/Header';
+import Footer from './components/footer';
 import { useParams } from 'react-router-dom';
 
 function MyRequests() {
@@ -73,7 +74,7 @@ function MyRequests() {
             </ul>
           </div>
       </div>
-
+    <Footer />  
     </div>
   );
 }
