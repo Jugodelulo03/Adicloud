@@ -35,6 +35,10 @@ function Main() {
             setAssets(res.data);
         } catch (err) {
         console.error('Error fetching assets:', err);
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/';
         }
     };
 
@@ -48,6 +52,10 @@ function Main() {
         setCategories(res.data);
       } catch (err) {
         console.error('Error fetching categories:', err);
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/';
       }
     };
 

@@ -31,6 +31,10 @@ function AdminDashboard() {
         setRequests(res.data);
       } catch (err) {
         console.error('Error fetching requests:', err);
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/';
       }
     };
 
@@ -51,6 +55,10 @@ function AdminDashboard() {
       );
     } catch (err) {
       console.error('Error updating status:', err);
+      localStorage.removeItem('userId');
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      window.location.href = '/';
     }
   };
 
