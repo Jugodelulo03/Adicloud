@@ -1,6 +1,7 @@
 .category-button{
     width: 212px;
-    height: 254px;
+    height: 140px;
+    
     font-family: 'Assistant', helvetica, arial, sans-serif;
     font-size: 14px;
     letter-spacing: 1.4px;
@@ -12,6 +13,8 @@
     background-color: #ffffff;
     color: black;
     border: none;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
 
 }
 
@@ -43,11 +46,11 @@
     }
 
     .category-button{
-    width: 212px;
-    height: 140px;
-    font-size: 14px;
-    gap: 5px;
-}
+    width: 160px;
+    height: 110px;
+    font-size: 10px;
+    gap: 2px;
+  }
   .dropbtn{
     padding: 6px;
     font-size: 12px;

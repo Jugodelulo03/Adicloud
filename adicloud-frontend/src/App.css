@@ -2,8 +2,8 @@
 
 html{
   height: 100%;
+  overflow-x: hidden;
 }
-
 
 .App {
   text-align: center;

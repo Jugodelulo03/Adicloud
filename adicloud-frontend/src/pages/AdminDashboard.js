@@ -64,7 +64,8 @@ function AdminDashboard() {
   };
 
   return (
-    <div>
+    <div className="wrapper">
+      
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"admin"}/>
       <div className='body'>
         <h1>View {status || "All"}</h1>

@@ -25,20 +25,18 @@
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  margin-top: 66px;
+  margin-top: 16px;
   background-image: url('./assets/outdoor_fw24_terrex_adventure_wardrobe_launch_plp_iwp_bg_d_771e98f121.avif');
   background-size: cover;
   background-position: center;
-  height: 207px;
+  height: 140px;
   overflow: hidden;
 }
 
 .divider1{
-  height: 1px;
+
   width: 100%;
   background-color: #edeff1;
-  margin-top: 39px; 
-  margin-bottom: 20px;
 }
 
 .overflowCategories{

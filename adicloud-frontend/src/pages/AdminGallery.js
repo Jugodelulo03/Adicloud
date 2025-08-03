@@ -94,7 +94,7 @@ function Main() {
 
   return (
 
-    <div>  
+    <div className="wrapper">  
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"admin"}/>
       <div className='body'>
         <h2>ASSETS</h2>

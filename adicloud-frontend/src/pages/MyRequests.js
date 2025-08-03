@@ -58,7 +58,7 @@ function MyRequests() {
 };
 
   return (
-    <div>
+    <div className="wrapper">
       <Header statusFilter={status} setStatusFilter={() => {}} role="user" />
       <div className='body'>
         <div>

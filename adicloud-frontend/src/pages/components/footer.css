@@ -1,5 +1,7 @@
 .footer {
+  bottom: 0;
   height: 40px;
+  margin: auto 0 0;
   background-color: #000;
   color: #fff;
   padding: 20px 40px;

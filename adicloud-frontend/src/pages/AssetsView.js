@@ -72,7 +72,7 @@ function UserRequestForm() {
   </div>
 
   return (
-    <div>
+    <div className="wrapper">
       <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
       <div className='body'>
         <div className='bodyl'>

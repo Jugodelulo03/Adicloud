@@ -1,6 +1,9 @@
 import React from 'react';
 import './CategoryCard.css';
 
+
+
+
 function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
   return (
     <div className="CategoryCard">
@@ -12,6 +15,7 @@ function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
       </button>
 
       {categories.map((cat, idx) => (
+
         <button
           key={idx}
           className={categoryFilter === cat ? 'category-button active' : 'category-button'}
