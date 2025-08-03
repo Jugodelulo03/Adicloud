@@ -8,12 +8,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, message) => {
   const mailOptions = {
     from: `"Adicloud" <${process.env.EMAIL_USER}>`,
     to,
     subject,
-    text
+    html: message
   };
 
   try {

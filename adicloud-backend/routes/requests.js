@@ -43,8 +43,6 @@ router.post('/requests', async (req, res) => {
     // EMAIL NOTIFICATION
     await sendEmail(adminEmails, 'New Asset Request Submitted', htmlBody, true);
 
-    res.json({ message: 'Request created', request: newRequest });
-
 
     res.json({ message: 'Request created', request: newRequest });
   } catch (err) {
