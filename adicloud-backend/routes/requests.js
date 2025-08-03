@@ -3,6 +3,8 @@ const Request = require('../models/Request');
 const { requireAdmin } = require('../middleware/authMiddleware');
 const sendEmail = require('../utils/mailer');
 const User = require('../models/User');
+const Asset = require('../models/Asset');
+
 
 const router = express.Router();
 
@@ -19,7 +21,7 @@ router.post('/requests', async (req, res) => {
     const admins = await User.find({ role: 'admin' }).select('email');
     const adminEmails = admins.map(admin => admin.email);
 
-    const logoUrl = 'https://discordapp.com/channels/@me/1401403217799282748/1401455082364604486';
+    const logoUrl = 'https://res.cloudinary.com/dyq3arsfc/image/upload/v1754203284/adicloud_xrsb1l.png';
     const previewUrl = asset?.files?.[0];
 
     const htmlBody = `
