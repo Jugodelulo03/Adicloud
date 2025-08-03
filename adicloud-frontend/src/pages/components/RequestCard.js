@@ -37,16 +37,16 @@ function RequestCard({ request, onApprove, onReject , onDownload }) {
       />
       <div className="infoRequest">
         <div>
-          <p className="nameAsset">{request.assetId?.name}</p>
+          <p className="nameAsset"> <strong>{request.assetId?.name}</strong></p>
           <p>{request.assetId?.files?.length} files</p>
           {!isUser && (
             <>
-              <p>To: {request.userId?.name}</p>
-              <p>Purpose: {request.purpose}</p>
+              <p> <strong>To:</strong> {request.userId?.name}</p>
+              <p> <strong>Purpose: </strong>{request.purpose}</p>
             </>
           )}
-          <p>Requested: {new Date(request.createdAt).toLocaleDateString()}</p>
-          <p>Deadline: {new Date(request.deadline).toLocaleDateString()}</p>
+          <p> <strong>Requested: </strong>{new Date(request.createdAt).toLocaleDateString()}</p>
+          <p> <strong>Deadline: </strong> {new Date(request.deadline).toLocaleDateString()}</p>
         </div>
         <div className="divider"></div>
         <div className="rightpanel">
