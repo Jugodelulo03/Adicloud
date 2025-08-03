@@ -26,17 +26,17 @@ router.post('/requests', async (req, res) => {
 
     const htmlBody = `
       <div style="font-family: Helvetica, sans-serif;">
-        <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
-        <h2>New Asset Request Submitted</h2>
-        <p><strong>User:</strong> ${user.email}</p>
-        <p><strong>Asset:</strong> ${asset?.name || 'Unknown'}</p>
-        <p><strong>Purpose:</strong> ${purpose}</p>
-        <p><strong>Deadline:</strong> ${deadline}</p>
-        ${
-          previewUrl
-            ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 300px; border: 1px solid #ccc;" /></p>`
-            : ''
-        }
+      <h2>New Asset Request Submitted</h2>
+      <p><strong>User:</strong> ${user.email}</p>
+      <p><strong>Asset:</strong> ${asset?.name || 'Unknown'}</p>
+      <p><strong>Purpose:</strong> ${purpose}</p>
+      <p><strong>Deadline:</strong> ${deadline}</p>
+      ${
+        previewUrl
+        ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 200px; border: 1px solid #767676;" /></p>`
+        : ''
+      }
+      <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
       </div>
     `;
 
