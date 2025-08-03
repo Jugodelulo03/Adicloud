@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './assetsview.css';
 import Logo from './assets/logo_tradicional.svg';
 import Header from './components/Header';
@@ -13,14 +13,10 @@ const getFileName = (url) => {
 function AdminRequestForm() {
   const { idAsset } = useParams();
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
-  const navigate = useNavigate();
 
   const { status } = useParams();
   const [asset, setAsset] = useState(null);
   const [statusFilter, setStatusFilter] = useState(status || '');
-
-
 
   // Fetch asset details
   useEffect(() => {

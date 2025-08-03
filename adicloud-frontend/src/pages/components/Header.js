@@ -8,8 +8,8 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState('');
     const dropdownRef = useRef(null);
-
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };

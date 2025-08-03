@@ -6,7 +6,6 @@ function AddpackPopup({ categories, token, onClose }) {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [files, setFiles] = useState([]);
-    const [customCategory, setCustomCategory] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleFileChange = (e) => {
@@ -39,9 +38,7 @@ function AddpackPopup({ categories, token, onClose }) {
         if (isSubmitting) return; // Prevent multiple submissions
         setIsSubmitting(true);
 
-        const finalCategory = category === 'Otro' ? customCategory : category;
-
-        if (!name || !finalCategory || files.length === 0) {
+        if (!name || !category || files.length === 0) {
             alert("Please, fill in all the fields");
             setIsSubmitting(false);
             return;
@@ -50,7 +47,7 @@ function AddpackPopup({ categories, token, onClose }) {
         try {
             const formData = new FormData();
             formData.append('name', name);
-            formData.append('category', finalCategory);
+            formData.append('category', category);
 
             files.forEach((file) => {
                 formData.append('files', file);
