@@ -58,5 +58,11 @@ Key goals:
 - Cloud: Cloudinary (for file storage), Nodemailer (for email notifications), Render (for deployment)
 - Security: Authentication via JWT, Admin middleware
 
+##  Known issues or limitations
+
+- In both the backend and the frontend, We're currently using the full URL directly in the requests (e.g., https://adicloud.onrender.com/assets/${idAsset}) instead of storing the base URL in an environment variable.
+- This was done for simplicity during development, but We plan to refactor it later to use environment variables for better maintainability and flexibility.
+
+
 
 
