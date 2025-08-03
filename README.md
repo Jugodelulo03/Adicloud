@@ -1,6 +1,6 @@
-# ADICloud – Adidas Ignite Asset Request System
+# Adicloud – Adidas Ignite Asset Request System
 
-## 📝 Project Overview and Goals
+## Project Overview and Goals
 
 A.D.I.Cloud is a web-based platform developed for Adidas as part of the Ignite Selection Process. The system allows internal users to browse, request, and manage access to marketing and promotional assets. The core objective is to streamline asset approval and request tracking through an intuitive interface for both users and administrators.
 
@@ -25,40 +25,44 @@ Key goals:
   ### Backend Setup (Node.js + Express + MongoDB + Cloudinary)
 
 1. Clone the repo and navigate to `adicloud-backend`:
-   `git clone https://github.com/your-username/adicloud.git`
-   `cd adicloud/adicloud-backend`
+- `git clone https://github.com/your-username/adicloud.git`
+- `cd adicloud/adicloud-backend`
    
-2. Install dependencies:
-  npm install
+3. Install dependencies:
+  `npm install`
 
-3. Create a .env file and add the following:
-  MONGO_URI=your_mongodb_uri
-  JWT_SECRET=your_jwt_secret
-  CLOUDINARY_CLOUD_NAME=your_cloud_name
-  CLOUDINARY_API_KEY=your_api_key
-  CLOUDINARY_API_SECRET=your_api_secret
-  EMAIL_USER=your_email@example.com
-  EMAIL_PASS=your_email_password_or_app_password
+4. Create a .env file and add the following:
+- `MONGO_URI=your_mongodb_uri`
+- `JWT_SECRET=your_jwt_secret`
+- `CLOUDINARY_CLOUD_NAME=your_cloud_name`
+- `CLOUDINARY_API_KEY=your_api_key`
+- `CLOUDINARY_API_SECRET=your_api_secret`
+- `EMAIL_USER=your_email@example.com`
+- `EMAIL_PASS=your_email_password_or_app_password`
 
-4. Start the backend
-   npm start
+4. Start the backend `npm start`
 
   ### Frontend Setup 
   
 1. Navigate to the frontend folder:
-   cd ../adicloud-frontend
+   `cd ../adicloud-frontend`
 2. Install dependencies
-   npm install
+   `npm install`
 3. Start the frontend
-   npm start
-
+   `npm start`
 
 ##  Technologies Used
 
-Frontend: React, Axios, React Router DOM
-Backend: Express, MongoDB (Mongoose), JWT, Bcrypt
-Cloud: Cloudinary (for file storage), Nodemailer (for email notifications), Render (for deployment)
-Security: Authentication via JWT, Admin middleware
+- Frontend: React, Axios, React Router DOM
+- Backend: Express, MongoDB (Mongoose), JWT, Bcrypt
+- Cloud: Cloudinary (for file storage), Nodemailer (for email notifications), Render (for deployment)
+- Security: Authentication via JWT, Admin middleware
+
+##  Known issues or limitations
+
+- In both the backend and the frontend, We're currently using the full URL directly in the requests (e.g., https://adicloud.onrender.com/assets/${idAsset}) instead of storing the base URL in an environment variable.
+- This was done for simplicity during development, but We plan to refactor it later to use environment variables for better maintainability and flexibility.
+
 
 
 
