@@ -22,8 +22,24 @@ router.post('/requests', async (req, res) => {
     await sendEmail(
       adminEmails,
       'New Asset Request Submitted',
-      `User ${user.email} has submitted a new request for asset ${assetId}.\nPurpose: ${purpose}\nDeadline: ${deadline}`
+      `
+        <div style="font-family: Helvetica, sans-serif;">
+          <img src="adicloud-frontend/src/pages/assets/adicould.svg" alt="Logo" style="width: 120px;" />
+          <h2>New Asset Request Submitted</h2>
+          <p><strong>User:</strong> ${user.email}</p>
+          <p><strong>Asset ID:</strong> ${assetId}</p>
+          <p><strong>Purpose:</strong> ${purpose}</p>
+          <p><strong>Deadline:</strong> ${deadline}</p>
+          ${
+            assetId?.files?.[0]
+              ? `<p><strong>Preview:</strong><br><img src="${assetId.files[0]}" alt="Asset preview" style="max-width: 300px; border: 1px solid #ccc;" /></p>`
+              : ''
+          }
+        </div>
+      `,
+      true
     );
+
 
     res.json({ message: 'Request created', request: newRequest });
   } catch (err) {
