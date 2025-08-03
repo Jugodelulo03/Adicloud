@@ -19,8 +19,6 @@
 }
 
 .category-button:hover{
-    background-color: #000000;
-    color: #ffffff;
     transform: translateY(-26px);
 }
 

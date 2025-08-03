@@ -125,7 +125,9 @@ function Main() {
                 />
             )}
             {assets.map((asset) => (
+              <Link to={`/admingallery/${asset._id}`} className='nameAsset'>
                 <AssetCard key={asset._id} asset={asset} />
+              </Link>
             ))}
           </ul>
         </div>

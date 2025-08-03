@@ -19,7 +19,10 @@
   gap: 2px;
   flex: 1;
   overflow-y: auto;
+  max-height: 900px;
+
 }
+
 
 @media (min-width: 1280px){
   .AssetsFilesView{

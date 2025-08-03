@@ -6,6 +6,7 @@ import UserDashboard from "./pages/UserDashboard";
 import AssetsView from "./pages/AssetsView";
 import MyRequests from "./pages/MyRequests"; 
 import AdminGallery from "./pages/AdminGallery"; 
+import AssetViewAdmin from "./pages/AssetviewAdmin";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -28,6 +29,11 @@ function App() {
         <Route
           path="/admingallery"
           element={token && role === 'admin' ? <AdminGallery /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/admingallery/:idAssetview"
+          element={token && role === 'admin' ? <AssetViewAdmin /> : <Navigate to="/" />}
         />
 
         {/* USEEER */}

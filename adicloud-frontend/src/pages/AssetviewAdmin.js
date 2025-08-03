@@ -10,7 +10,7 @@ const getFileName = (url) => {
   return url.split('/').pop();
 };
 
-function UserRequestForm() {
+function AdminRequestForm() {
   const { idAsset } = useParams();
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
@@ -18,9 +18,6 @@ function UserRequestForm() {
 
   const { status } = useParams();
   const [asset, setAsset] = useState(null);
-  const [purpose, setPurpose] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [message, setMessage] = useState('');
   const [statusFilter, setStatusFilter] = useState(status || '');
 
 
@@ -45,27 +42,6 @@ function UserRequestForm() {
     fetchAsset();
   }, [idAsset, token]);
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.post('https://adicloud.onrender.com/requests', {
-        userId,
-        assetId: idAsset,
-        purpose,
-        deadline
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      setMessage('Request submitted successfully!');
-      setTimeout(() => navigate('/galery'), 2000); // return to main after 2s
-    } catch (err) {
-      console.error('Error creating request:', err);
-      setMessage('Failed to submit request');
-    }
-  };
 
   if (!asset) return<div className='menu1'>
     <img src={Logo} alt="Logo" className="fade-in-logo" />
@@ -73,7 +49,7 @@ function UserRequestForm() {
 
   return (
     <div className="wrapper">
-      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"user"}/>
+      <Header statusFilter={statusFilter} setStatusFilter={setStatusFilter} role={"admin"}/>
       <div className='body'>
         <div className='bodyl'>
           {/* Show all images */}
@@ -122,35 +98,12 @@ function UserRequestForm() {
                 </ul>
               </div>
             </div>
-            <h3 className='ToRquest'>To Request</h3>
-            <p className='before'>Before submit, please fill in all the information.</p>
-
-            <form onSubmit={handleSubmit}  className='styleForm'>
-              <input
-                type="text"
-                placeholder="Purpose*"
-                value={purpose}
-                onChange={(e) => setPurpose(e.target.value)}
-                required
-                className='textbox'
-              />
-              <input
-                type="date"
-                value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-                required
-                className='datebox'
-              />
-              <p className='after'>All fields market with * are requeried.</p>
-              <button type="submit" className='botton1'>Submit</button>
-            </form>
           </div>
         </div>
-        {message && <p>{message}</p>}
       </div>
       <Footer />
     </div>
   );
 }
 
-export default UserRequestForm;
+export default AdminRequestForm;
