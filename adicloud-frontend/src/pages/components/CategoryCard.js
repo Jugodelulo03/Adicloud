@@ -8,7 +8,11 @@ function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
         className={`all-category-button ${categoryFilter === '' ? 'category-button active' : 'category-button'}`}
         onClick={() => setCategoryFilter('')} 
       >
-        All Categories
+        <div className='textbuttonCC'>
+
+          All Categories
+        </div>
+
       </button>
 
       {categories.map((cat, idx) => (
@@ -24,7 +28,9 @@ function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
               className="category-image"
             />
           )}
-          {cat.name}
+          <div className='textbuttonCC'>
+            {cat.name}
+          </div>
         </button>
       ))}
     </div>
