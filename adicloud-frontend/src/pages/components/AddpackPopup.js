@@ -7,6 +7,7 @@ function AddpackPopup({ categories, token, onClose }) {
     const [category, setCategory] = useState('');
     const [files, setFiles] = useState([]);
     const [customCategory, setCustomCategory] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
@@ -35,10 +36,14 @@ function AddpackPopup({ categories, token, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (isSubmitting) return; // Prevent multiple submissions
+        setIsSubmitting(true);
+
         const finalCategory = category === 'Otro' ? customCategory : category;
 
         if (!name || !finalCategory || files.length === 0) {
             alert("Please, fill in all the fields");
+            setIsSubmitting(false);
             return;
         }
 
@@ -65,6 +70,7 @@ function AddpackPopup({ categories, token, onClose }) {
         } catch (error) {
             console.error('Upload error:', error.response ? error.response.data : error.message);
             alert('ERROR upload pack');
+            setIsSubmitting(false);
         }
     };
 
@@ -119,21 +125,10 @@ function AddpackPopup({ categories, token, onClose }) {
                             {categories.map((cat, idx) => (
                                 <option key={idx} value={cat}>{cat}</option>
                             ))}
-                            <option value="Otro">Otro</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
-
-                    {category === 'Otro' && (
-                        <input
-                            type="text"
-                            placeholder="Enter category"
-                            value={customCategory}
-                            onChange={(e) => setCustomCategory(e.target.value)}
-                            className='textboxs'
-                        />
-                    )}
-
-                    <button className="save-button" onClick={handleSubmit}>Save</button>
+                    <button className="save-button" onClick={handleSubmit} disabled={isSubmitting}>{isSubmitting ? 'Saving...' : 'Save'}</button>
                 </div>
             </div>
         </div>

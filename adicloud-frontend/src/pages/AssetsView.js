@@ -14,6 +14,8 @@ function UserRequestForm() {
   const { idAsset } = useParams();
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+  const today = new Date().toISOString().split('T')[0];
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const { status } = useParams();
@@ -49,6 +51,10 @@ function UserRequestForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+     if (isSubmitting) return;  // Prevent multiple submissions
+
+     setIsSubmitting(true);
+
     try {
       const res = await axios.post('https://adicloud.onrender.com/requests', {
         userId,
@@ -60,7 +66,7 @@ function UserRequestForm() {
       });
 
       setMessage('Request submitted successfully!');
-      setTimeout(() => navigate('/galery'), 2000); // return to main after 2s
+      setTimeout(() => navigate('/galery'), 1000); // return to main after 1s
     } catch (err) {
       console.error('Error creating request:', err);
       setMessage('Failed to submit request');
@@ -136,13 +142,14 @@ function UserRequestForm() {
               />
               <input
                 type="date"
+                min={today}
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
                 required
                 className='datebox'
               />
               <p className='after'>All fields market with * are requeried.</p>
-              <button type="submit" className='botton1'>Submit</button>
+              <button type="submit" className='botton1'>{isSubmitting ? 'Submiting...' : 'Submit'}</button>
             </form>
           </div>
         </div>

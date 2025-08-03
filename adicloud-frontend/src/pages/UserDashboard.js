@@ -20,19 +20,44 @@ function Main() {
 
   // Fetch categories from backend
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get('https://adicloud.onrender.com/assets/categories', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCategories(res.data);
-      } catch (err) {
-        console.error('Error fetching categories:', err);
-      }
-    };
+  const fetchCategoriesWithAssets = async () => {
+    try {
+      const res = await axios.get('https://adicloud.onrender.com/assets/categories', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const categoryList = res.data;
 
-    fetchCategories();
-  }, [token]);
+      const previews = {};
+
+      // Para cada categoría, busca el primer asset que tenga esa categoría
+      await Promise.all(
+        categoryList.map(async (cat) => {
+          try {
+            const assetRes = await axios.get(`https://adicloud.onrender.com/assets?category=${cat}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            if (assetRes.data.length > 0) {
+              previews[cat] = assetRes.data[0].files[0]; // primera imagen del primer asset
+            }
+          } catch (error) {
+            console.warn(`No assets for category ${cat}`);
+          }
+        })
+      );
+
+      setCategories(
+        categoryList.map((cat) => ({
+          name: cat,
+          previewImage: previews[cat] || null,
+        }))
+      );
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+    }
+  };
+
+  fetchCategoriesWithAssets();
+}, [token]);
 
   // Fetch assets based on selected category
   useEffect(() => {
