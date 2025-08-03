@@ -32,7 +32,7 @@ function App() {
         />
 
         <Route
-          path="/admingallery/:idAssetview"
+          path="/admingallery/:idAsset"
           element={token && role === 'admin' ? <AssetViewAdmin /> : <Navigate to="/" />}
         />
 

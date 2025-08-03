@@ -28,8 +28,7 @@ function Main() {
       const categoryList = res.data;
 
       const previews = {};
-
-      // Para cada categoría, busca el primer asset que tenga esa categoría
+      // For each category, find the first asset that has that category
       await Promise.all(
         categoryList.map(async (cat) => {
           try {

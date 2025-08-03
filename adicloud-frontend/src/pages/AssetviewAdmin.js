@@ -32,10 +32,12 @@ function AdminRequestForm() {
         setAsset(res.data);
       } catch (err) {
         console.error('Error fetching asset:', err);
+        /*
         localStorage.removeItem('userId');
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         window.location.href = '/';
+        */
       }
     };
 

@@ -16,15 +16,15 @@
   padding: 24px;
   text-align: center;
   align-content: center;
-  width: 590px;
-  height: 330px;
+  width: 430px;
+  height: 260px;
   border: 1px solid #eaeeef;
 }
 
 .ContenidoPopUp{
   display: flex;
   flex-direction: column;
-  gap: 95px;
+  gap:40px;
 
 }
 
@@ -82,7 +82,7 @@
   }
 
   .ContenidoPopUp{
-  gap: 20px;
+  gap: 10px;
 
 }
 

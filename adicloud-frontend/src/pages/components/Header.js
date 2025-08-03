@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LogoC from '../assets/adicould.svg';
 import IconProfile from '../assets/icon_profile.svg';
-import '../dropdownmenuA.css';
+import './header.css';
 import ConfirmationPopup from './ConfirmationPopUp.js';
 
 const Header = ({ statusFilter, setStatusFilter, role }) => {
@@ -15,8 +15,8 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
     };
 
     const handleLogoutClick = () => {
-        setShowLogoutConfirm(true); // mostrar pop-up
-        setShowDropdown(false); // cerrar el dropdown
+        setShowLogoutConfirm(true); 
+        setShowDropdown(false); 
     };
 
     const confirmLogout = () => {

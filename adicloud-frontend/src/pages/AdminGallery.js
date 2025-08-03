@@ -15,6 +15,7 @@ import AddpackPopup from './components/AddpackPopup';
 function Main() {
   const { status } = useParams();
   const [assets, setAssets] = useState([]);
+  const [categoriesName, setCategoriesName] = useState([]);
   const [categories, setCategories] = useState([]);
   const [statusFilter, setStatusFilter] = useState(status || '');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -50,7 +51,7 @@ function Main() {
         const res = await axios.get('https://adicloud.onrender.com/assets/categories', {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setCategories(res.data);
+        setCategoriesName(res.data);
       } catch (err) {
         console.error('Error fetching categories:', err);
         localStorage.removeItem('userId');
@@ -62,6 +63,47 @@ function Main() {
 
     fetchCategories();
   }, [token]);
+
+  // Fetch categories from backend
+  useEffect(() => {
+  const fetchCategoriesWithAssets = async () => {
+    try {
+      const res = await axios.get('https://adicloud.onrender.com/assets/categories', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const categoryList = res.data;
+
+      const previews = {};
+      // For each category, find the first asset that has that category
+      await Promise.all(
+        categoryList.map(async (cat) => {
+          try {
+            const assetRes = await axios.get(`https://adicloud.onrender.com/assets?category=${cat}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            if (assetRes.data.length > 0) {
+              previews[cat] = assetRes.data[0].files[0]; // primera imagen del primer asset
+            }
+          } catch (error) {
+            console.warn(`No assets for category ${cat}`);
+          }
+        })
+      );
+
+      setCategories(
+        categoryList.map((cat) => ({
+          name: cat,
+          previewImage: previews[cat] || null,
+        }))
+      );
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+    }
+  };
+
+  fetchCategoriesWithAssets();
+}, [token]);
+
 
   // Fetch assets based on selected category
   useEffect(() => {
@@ -116,7 +158,7 @@ function Main() {
             </li>
             {showPopup && (
                 <AddpackPopup
-                    categories={categories}
+                    categories={categoriesName}
                     token={token}
                     onClose={() => {
                         setShowPopup(false);
