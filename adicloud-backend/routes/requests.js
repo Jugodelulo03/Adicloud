@@ -168,6 +168,8 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
 
     // EMAIL NOTIFICATION
     await sendEmail(updated.userId.email, 'Request status updated', htmlBody, true);
+    
+    res.json({ message: 'Request status updated', request: updated });
 
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
