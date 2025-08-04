@@ -2,7 +2,7 @@
 
 ## Project Overview and Goals
 
-A.D.I.Cloud is a web-based platform developed for Adidas as part of the Ignite Selection Process. The system allows internal users to browse, request, and manage access to marketing and promotional assets. The core objective is to streamline asset approval and request tracking through an intuitive interface for both users and administrators.
+AdiCloud is a web-based platform developed for Adidas as part of the Ignite Selection Process. The system allows internal users to browse, request, and manage access to marketing and promotional assets. The core objective is to streamline asset approval and request tracking through an intuitive interface for both users and administrators.
 
 Key goals:
 - Enable users to view digital assets by category.
