@@ -11,14 +11,30 @@ Key goals:
 - Notify users and admins via email of important status changes.
 
 ---
+##  Technologies Used
 
-##  DEPLOY
+- Backend: 
+  - Express
+  - MongoDB  
+  - JWT (JsonWebToken)
+  - Bcrypt
+  - Multer / Archiver
+  - Cloudinary 
+  - Nodemailer 
+- Frontend:
+  - React
+  - Axios
+  - React Router DOM
+- Cloud:
+  - Cloudinary (for file storage),
+  - Nodemailer (for email notifications)
+  - Render (for deployment)
+- Security: Authentication via JWT, Admin middleware
 
-"Render" for deploy Static site and Web Service (API)
-"MongoDB" for database
-"Cloudinary" for storage
+##  Known issues or limitations
 
---->  https://adicloud-hxf9.onrender.com/
+- In both the backend and the frontend, We're currently using the full URL directly in the requests (e.g., https://adicloud.onrender.com/assets/${idAsset}) instead of storing the base URL in an environment variable.
+- This was done for simplicity during development, but We plan to refactor it later to use environment variables for better maintainability and flexibility.
 
 ##  Setup Instructions for Local Host
 
@@ -51,30 +67,6 @@ Key goals:
 3. Start the frontend
    `npm start`
 
-##  Technologies Used
-
-- Backend: 
-  - Express
-  - MongoDB  
-  - JWT (JsonWebToken)
-  - Bcrypt
-  - Multer / Archiver
-  - Cloudinary 
-  - Nodemailer 
-- Frontend:
-  - React
-  - Axios
-  - React Router DOM
-- Cloud:
-  - Cloudinary (for file storage),
-  - Nodemailer (for email notifications)
-  - Render (for deployment)
-- Security: Authentication via JWT, Admin middleware
-
-##  Known issues or limitations
-
-- In both the backend and the frontend, We're currently using the full URL directly in the requests (e.g., https://adicloud.onrender.com/assets/${idAsset}) instead of storing the base URL in an environment variable.
-- This was done for simplicity during development, but We plan to refactor it later to use environment variables for better maintainability and flexibility.
 
 
 
