@@ -6,6 +6,7 @@ import Logo from './assets/logo_tradicional.svg';
 import Header from './components/Header';
 import Footer from './components/footer';
 
+// Utility to extract file name from URL
 const getFileName = (url) => {
   return url.split('/').pop();
 };
@@ -14,7 +15,10 @@ function UserRequestForm() {
   const { idAsset } = useParams();
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+
+  // Today's date for the minimum deadline
   const today = new Date().toISOString().split('T')[0];
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -47,7 +51,7 @@ function UserRequestForm() {
     fetchAsset();
   }, [idAsset, token]);
 
-  // Handle form submission
+  // Submit request to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,6 +77,7 @@ function UserRequestForm() {
     }
   };
 
+   // Loading screen while asset is being fetched
   if (!asset) return<div className='menu1'>
     <img src={Logo} alt="Logo" className="fade-in-logo" />
   </div>

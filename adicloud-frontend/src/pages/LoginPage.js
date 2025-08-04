@@ -14,6 +14,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
+  // Check if user is already logged in
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
@@ -24,6 +25,8 @@ function LoginPage() {
     }
   }, [navigate]);
 
+
+  // Handle login form submission
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -34,10 +37,12 @@ function LoginPage() {
         password
       });
 
+      // Save authentication data in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('userId', response.data.userId);
 
+      // Reload the page to trigger role-based routing
       window.location.reload();
       
     } catch (err) {

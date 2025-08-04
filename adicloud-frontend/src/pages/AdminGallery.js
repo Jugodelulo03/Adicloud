@@ -44,7 +44,7 @@ function Main() {
         }
     };
 
-  // Fetch categories from backend
+  // Fetch categories names from backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -64,7 +64,7 @@ function Main() {
     fetchCategories();
   }, [token]);
 
-  // Fetch categories from backend
+  // Fetch categories and a preview asset (image) for each category
   useEffect(() => {
   const fetchCategoriesWithAssets = async () => {
     try {
@@ -74,6 +74,7 @@ function Main() {
       const categoryList = res.data;
 
       const previews = {};
+
       // For each category, find the first asset that has that category
       await Promise.all(
         categoryList.map(async (cat) => {
@@ -82,7 +83,7 @@ function Main() {
               headers: { Authorization: `Bearer ${token}` },
             });
             if (assetRes.data.length > 0) {
-              previews[cat] = assetRes.data[0].files[0]; // primera imagen del primer asset
+              previews[cat] = assetRes.data[0].files[0]; // Use first image of first asset
             }
           } catch (error) {
             console.warn(`No assets for category ${cat}`);
@@ -105,7 +106,7 @@ function Main() {
 }, [token]);
 
 
-  // Fetch assets based on selected category
+  // Fetch assets again when category filter changes
   useEffect(() => {
     const fetchAssets = async () => {
       try {
@@ -127,6 +128,7 @@ function Main() {
     fetchAssets();
   }, [categoryFilter, token]);
 
+  // If no assets are loaded yet, show loading screen with logo
   if (assets.length === 0) return (
   <div className='menu1'>
       <img src={Logo} alt="Logo" className="fade-in-logo" />

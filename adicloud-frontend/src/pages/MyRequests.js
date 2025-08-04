@@ -11,6 +11,7 @@ function MyRequests() {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
+  // Fetch user requests when component mounts or when status changes
   useEffect(() => {
     const fetchRequests = async () => {
       try {
@@ -34,6 +35,7 @@ function MyRequests() {
     if (userId) fetchRequests();
   }, [token, userId, status]);
 
+   // Handle file download for a specific asset
   const handleDownload = async (assetId, assetName) => {
   try {
     const response = await axios.get(`https://adicloud.onrender.com/assets/download/${assetId}`, {
@@ -43,6 +45,7 @@ function MyRequests() {
       }
     });
 
+    // Create a temporary URL to trigger browser download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
