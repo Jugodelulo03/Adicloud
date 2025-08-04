@@ -39,24 +39,23 @@ router.post('/requests', async (req, res) => {
 
     const htmlBody = `
       <div style="font-family: Helvetica, sans-serif;">
-        <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
-        <h2>New Asset Request Submitted</h2>
-        <p><strong>User:</strong> ${user.email}</p>
-        <p><strong>Asset:</strong> ${asset?.name || 'Unknown'}</p>
-        <p><strong>Purpose:</strong> ${purpose}</p>
-        <p><strong>Deadline:</strong> ${deadline}</p>
-        ${
-          previewUrl
-            ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 300px; border: 1px solid #ccc;" /></p>`
-            : ''
-        }
+      <h2>New Asset Request Submitted</h2>
+      <p><strong>User:</strong> ${user.email}</p>
+      <p><strong>Asset:</strong> ${asset?.name || 'Unknown'}</p>
+      <p><strong>Purpose:</strong> ${purpose}</p>
+      <p><strong>Deadline:</strong> ${deadline}</p>
+      ${
+        previewUrl
+        ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 200px; border: 1px solid #767676;" /></p>`
+        : ''
+      }
+      <p>Sincerely, Adicloud Team Work</p>
+      <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
       </div>
     `;
 
     // Send notification email to all admins
     await sendEmail(adminEmails, 'New Asset Request Submitted', htmlBody, true);
-
-    res.json({ message: 'Request created', request: newRequest });
 
 
     res.json({ message: 'Request created', request: newRequest });
@@ -151,14 +150,25 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
 
     if (!updated) return res.status(404).json({ error: 'Request not found' });
 
-    // Notify user via email
-    await sendEmail(
-      updated.userId.email,
-      `Your request for ${updated.assetId.name} was ${status}`,
-      `Hi ${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.`
-    );
+    const logoUrl = 'https://res.cloudinary.com/dyq3arsfc/image/upload/v1754203284/adicloud_xrsb1l.png';
 
-    res.json({ message: 'Request status updated', request: updated });
+    const htmlBody = `
+      <div style="font-family: Helvetica, sans-serif;">
+      <h2>Your request for ${updated.assetId.name} was ${status}</h2>
+      <p><strong>Hi </strong>${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.</p>
+      ${
+        previewUrl
+        ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 200px; border: 1px solid #767676;" /></p>`
+        : ''
+      }
+      <p>Sincerely, Adicloud Team Work</p>
+      <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
+      </div>
+    `;
+
+    // EMAIL NOTIFICATION
+    await sendEmail(updated.userId.email, 'Request status updated', htmlBody, true);
+
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
