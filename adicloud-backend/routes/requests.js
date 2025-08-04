@@ -135,8 +135,6 @@ router.get('/requests/status/:status', requireAdmin, async (req, res) => {
 router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
   try {
     const { status } = req.body;
-    const { assetId } = req.body;
-    const asset = await Asset.findById(assetId)
 
     // Validate status
     if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -153,17 +151,11 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
     if (!updated) return res.status(404).json({ error: 'Request not found' });
 
     const logoUrl = 'https://res.cloudinary.com/dyq3arsfc/image/upload/v1754203284/adicloud_xrsb1l.png';
-    const previewUrl = asset?.files?.[0];
 
     const htmlBody = `
       <div style="font-family: Helvetica, sans-serif;">
       <h2>Your request for ${updated.assetId.name} was ${status}</h2>
       <p><strong>Hi </strong>${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.</p>
-      ${
-        previewUrl
-        ? `<p><strong>Preview:</strong><br><img src="${previewUrl}" alt="Asset preview" style="max-width: 200px; border: 1px solid #767676;" /></p>`
-        : ''
-      }
       <p>Sincerely, Adicloud Team Work</p>
       <img src="${logoUrl}" alt="Logo" style="width: 120px;" />
       </div>
