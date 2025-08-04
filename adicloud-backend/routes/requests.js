@@ -169,6 +169,13 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
     // EMAIL NOTIFICATION
     await sendEmail(updated.userId.email, 'Request status updated', htmlBody, true);
 
+    
+    await sendEmail(
+      updated.userId.email,
+      `Your request for ${updated.assetId.name} was ${status}`,
+      `Hi ${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.`
+    );
+
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }

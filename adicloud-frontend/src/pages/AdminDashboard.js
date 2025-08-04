@@ -13,10 +13,12 @@ function AdminDashboard() {
   const [statusFilter, setStatusFilter] = useState(status || '');
   const token = localStorage.getItem('token');
 
+  // Sync the status filter with the URL param when it changes
   useEffect(() => {
     setStatusFilter(status || 'All');
   }, [status]);
 
+  // Fetch requests from backend whenever statusFilter changes
   useEffect(() => {
     const fetchRequests = async () => {
       try {
@@ -29,9 +31,10 @@ function AdminDashboard() {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        setRequests(res.data);
+        setRequests(res.data); // Update state with fetched requests
       } catch (err) {
         console.error('Error fetching requests:', err);
+        // If an error occurs (e.g., invalid token), clear session and redirect
         localStorage.removeItem('userId');
         localStorage.removeItem('token');
         localStorage.removeItem('role');
@@ -42,6 +45,7 @@ function AdminDashboard() {
     fetchRequests();
   }, [statusFilter, token]);
 
+  // Updates the status of a specific request
   const updateStatus = async (id, newStatus) => {
     try {
       await axios.patch(
@@ -49,6 +53,8 @@ function AdminDashboard() {
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      
+      // Optimistically update local state without refetching
       setRequests(prev =>
         prev.map(req =>
           req._id === id ? { ...req, status: newStatus } : req
