@@ -53,9 +53,22 @@ Key goals:
 
 ##  Technologies Used
 
-- Frontend: React, Axios, React Router DOM
-- Backend: Express, MongoDB (Mongoose), JWT, Bcrypt
-- Cloud: Cloudinary (for file storage), Nodemailer (for email notifications), Render (for deployment)
+- Backend: 
+  - Express
+  - MongoDB  
+  - JWT (JsonWebToken)
+  - Bcrypt
+  - Multer / Archiver
+  - Cloudinary 
+  - Nodemailer 
+- Frontend:
+  - React
+  - Axios
+  - React Router DOM
+- Cloud:
+  - Cloudinary (for file storage),
+  - Nodemailer (for email notifications)
+  - Render (for deployment)
 - Security: Authentication via JWT, Admin middleware
 
 ##  Known issues or limitations
