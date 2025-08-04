@@ -135,6 +135,8 @@ router.get('/requests/status/:status', requireAdmin, async (req, res) => {
 router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
   try {
     const { status } = req.body;
+    const { assetId } = req.body;
+    const asset = await Asset.findById(assetId)
 
     // Validate status
     if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -151,6 +153,7 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
     if (!updated) return res.status(404).json({ error: 'Request not found' });
 
     const logoUrl = 'https://res.cloudinary.com/dyq3arsfc/image/upload/v1754203284/adicloud_xrsb1l.png';
+    const previewUrl = asset?.files?.[0];
 
     const htmlBody = `
       <div style="font-family: Helvetica, sans-serif;">
@@ -169,12 +172,7 @@ router.patch('/requests/:id/status', requireAdmin,async (req, res) => {
     // EMAIL NOTIFICATION
     await sendEmail(updated.userId.email, 'Request status updated', htmlBody, true);
 
-    
-    await sendEmail(
-      updated.userId.email,
-      `Your request for ${updated.assetId.name} was ${status}`,
-      `Hi ${updated.userId.name}, your request for "${updated.assetId.name}" has been ${status}.`
-    );
+    res.json({ message: 'Request status updated', request: updated });
 
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
