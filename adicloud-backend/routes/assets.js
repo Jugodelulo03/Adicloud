@@ -7,6 +7,11 @@ const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
+/**
+ * Multer configuration: temporarily stores uploaded files in 'uploads/' folder
+ * Each file is renamed with a timestamp prefix to avoid conflicts
+ */
+
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
@@ -17,8 +22,12 @@ const storage = multer.diskStorage({
 // Multer: handles incoming file uploads by temporarily storing them in the 'uploads/' folder
 const upload = multer({ storage  });
 
-// POST /assets/upload - upload files to Cloudinary and save in MongoDB
-router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, res) => {
+
+/**
+ * @route   POST /assets/upload
+ * @desc    Uploads one or more files to Cloudinary and saves asset metadata in MongoDB
+ * @access  Admin only
+ */router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, res) => {
   
   try {
     const { name, category } = req.body;
@@ -31,12 +40,15 @@ router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, r
     // Create folder path in Cloudinary: category/name
     const folderPath = `${category}/${name}`;
 
-    // Upload each file to Cloudinary in its folder, then delete temp file
+    /**
+     * Upload files to Cloudinary, then delete the local temp file
+     * Uses Promise.all to handle multiple uploads concurrently
+     */
     const uploadResults = await Promise.all(
       req.files.map(async (file) => {
         const result = await cloudinary.uploader.upload(file.path, { 
           folder: folderPath,
-          resource_type: 'auto'
+          resource_type: 'auto' // handles images, videos, PDFs, etc.
         });
         fs.unlinkSync(file.path); // delete temp file after upload
         return result;
@@ -56,7 +68,12 @@ router.post('/assets/upload', requireAdmin ,upload.array('files'), async (req, r
   }
 });
 
-// GET /assets?category=nombre_categoria - retrieve assets by category
+
+/**
+ * @route   GET /assets
+ * @desc    Retrieve all assets or filter by category using query param
+ * @access  Public
+ */
 router.get('/assets', async (req, res) => {
   try {
     const { category } = req.query;
@@ -71,7 +88,11 @@ router.get('/assets', async (req, res) => {
   }
 });
 
-// GET /assets/categories - get unique categories
+/**
+ * @route   GET /assets/categories
+ * @desc    Retrieve a list of unique asset categories
+ * @access  Public
+ */
 router.get('/assets/categories', async (req, res) => {
   try {
     const categories = await Asset.distinct('category');
@@ -81,7 +102,11 @@ router.get('/assets/categories', async (req, res) => {
   }
 });
 
-// GET /assets/:id - retrieve single asset by ID
+/**
+ * @route   GET /assets/:id
+ * @desc    Retrieve a single asset by its MongoDB ID
+ * @access  Public
+ */
 router.get('/assets/:id', async (req, res) => {
   try {
     const asset = await Asset.findById(req.params.id);

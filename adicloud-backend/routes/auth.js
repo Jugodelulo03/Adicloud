@@ -1,7 +1,6 @@
-//import  Express, Bcrypt, and JWT
 const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt'); // For hashing and verifying passwords
+const jwt = require('jsonwebtoken'); // For generating JWT tokens
 
 //import User model
 const User = require('../models/User'); // User model
@@ -10,8 +9,11 @@ const User = require('../models/User'); // User model
 const router = express.Router();
 
 
-// LOGIN user
-// POST /login
+/**
+ * @route   POST /login
+ * @desc    Authenticates a user and returns a JWT token
+ * @access  Public
+ */
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -46,8 +48,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// REGISTER new user
-// POST /register
+/**
+ * @route   POST /register
+ * @desc    Registers a new user with name, email, password and optional role
+ * @access  Public
+ */
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -77,5 +82,4 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Export the router
 module.exports = router;
