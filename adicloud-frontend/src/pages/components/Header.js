@@ -19,6 +19,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
         setShowDropdown(false); 
     };
 
+    // Confirm and perform logout (clear localStorage and redirect)
     const confirmLogout = () => {
         localStorage.removeItem('userId');
         localStorage.removeItem('token');
@@ -30,6 +31,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
         setShowLogoutConfirm(false);
     };
 
+    // Close dropdown if user clicks outsid
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -43,6 +45,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
         };
     }, []);
 
+    // Fetch and set user's name using token
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -78,7 +81,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                     <a href="/">
                         <img src={LogoC} alt="Logo" className="logoC" />
                     </a>
-                    {role === 'admin' && (   //admin 
+                    {role === 'admin' && (   // Menu for admin 
                         <nav className="menu1">
                             <div className="requestmenu">
                                 <a href="/dashboard" className= "dropbtn">Requests</a>
@@ -93,7 +96,7 @@ const Header = ({ statusFilter, setStatusFilter, role }) => {
                         </nav>
                     )}
 
-                    {role === 'user' && (   // user
+                    {role === 'user' && (   // Menu for regular user
                         <nav className="menu1"> 
 
                             <a href="/" className= "dropbtn gallery"> Gallery</a>

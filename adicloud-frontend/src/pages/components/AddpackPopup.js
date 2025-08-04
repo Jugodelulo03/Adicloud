@@ -11,6 +11,7 @@ function AddpackPopup({ categories, token, onClose }) {
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
 
+        // Combine current and new files, ensuring no duplicates by name+size    
         setFiles(prevFiles => {
             const allFiles = [...prevFiles, ...selectedFiles];
             const uniqueFiles = [];
@@ -28,6 +29,7 @@ function AddpackPopup({ categories, token, onClose }) {
         });
     };
 
+    // Remove a specific file from the list
     const handleRemoveFile = (indexToRemove) => {
         setFiles(prevFiles => prevFiles.filter((_, idx) => idx !== indexToRemove));
     };
@@ -38,6 +40,7 @@ function AddpackPopup({ categories, token, onClose }) {
         if (isSubmitting) return; // Prevent multiple submissions
         setIsSubmitting(true);
 
+        // Validate that all fields are filled    
         if (!name || !category || files.length === 0) {
             alert("Please, fill in all the fields");
             setIsSubmitting(false);
@@ -45,6 +48,7 @@ function AddpackPopup({ categories, token, onClose }) {
         }
 
         try {
+            // Prepare the form data for upload
             const formData = new FormData();
             formData.append('name', name);
             formData.append('category', category);
@@ -53,6 +57,7 @@ function AddpackPopup({ categories, token, onClose }) {
                 formData.append('files', file);
             });
 
+            // Send data to the server with authorization
             const response = await axios.post('https://adicloud.onrender.com/assets/upload', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,

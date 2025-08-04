@@ -4,6 +4,7 @@ import './CategoryCard.css';
 function CategoryCard({ categories, categoryFilter, setCategoryFilter }) {
   return (
     <div className="CategoryCard">
+      {/* Button to reset the filter and show all categories */}
       <button
         className={`all-category-button ${categoryFilter === '' ? 'category-button active' : 'category-button'}`}
         onClick={() => setCategoryFilter('')} 
