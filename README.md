@@ -11,6 +11,17 @@ Key goals:
 - Notify users and admins via email of important status changes.
 
 ---
+
+##  DEPLOY
+
+"Render" for deploy Static site and Web Service (API)
+"MongoDB" for database
+"Cloudinary" for storage
+
+--->  https://adicloud-hxf9.onrender.com/
+
+---
+
 ##  Technologies Used
 
 - Backend: 
